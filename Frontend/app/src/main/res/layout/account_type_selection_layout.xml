@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Account Type"
+        android:textSize="28dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"
+        android:textColor="@color/cobalt_blue">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/user_selection_btn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableTop="@drawable/baseline_person_24"
+            android:drawableTint="@color/white"
+            android:backgroundTint="@color/medium_blue"
+            android:text="User"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:padding="10dp">
+        </Button>
+
+        <Button
+            android:id="@+id/company_selection_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableTop="@drawable/baseline_business_center_24"
+            android:drawableTint="@color/white"
+            android:backgroundTint="@color/grey"
+            android:text="Company"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:padding="10dp">
+        </Button>
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
