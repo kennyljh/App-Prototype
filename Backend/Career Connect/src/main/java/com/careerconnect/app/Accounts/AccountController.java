@@ -3,6 +3,8 @@ package com.careerconnect.app.Accounts;
 import com.careerconnect.app.Usernames.Username;
 import com.careerconnect.app.Usernames.UsernameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +22,18 @@ public class AccountController {
     @GetMapping("/get")
     List<Account> getAllAccounts(){
         return accountRepository.findAll();
+    }
+
+    @GetMapping("/get/{username}")
+    ResponseEntity<?> getSpecificAccount(@PathVariable String username){
+
+        Username specificUsername = usernameRepository.findByUsername(username);
+        if (specificUsername == null){
+            String errorMessage = "Account with username: " + username + " does not exist";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+
+        return ResponseEntity.ok(accountRepository.findByUsernameId(specificUsername.getId()));
     }
 
     @PostMapping("/create")
