@@ -58,22 +58,7 @@ public class VolleyJSONObjectRequests {
                         callback.onResult(false);
                     }
                 }
-        ) {
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                return headers;
-            }
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-//                params.put("param1", "value1");
-//                params.put("param2", "value2");
-                return params;
-            }
-        };
+        );
 
         // Adding request to request queue
         VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
@@ -139,20 +124,6 @@ public class VolleyJSONObjectRequests {
                     VolleyLog.d("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
                     return null;
                 }
-            }
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                return headers;
-            }
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-//                params.put("param1", "value1");
-//                params.put("param2", "value2");
-                return params;
             }
         };
 
@@ -221,20 +192,6 @@ public class VolleyJSONObjectRequests {
                     return null;
                 }
             }
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                return headers;
-            }
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-//                params.put("param1", "value1");
-//                params.put("param2", "value2");
-                return params;
-            }
         };
 
         // Adding request to request queue
@@ -301,20 +258,6 @@ public class VolleyJSONObjectRequests {
                     VolleyLog.d("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
                     return null;
                 }
-            }
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                return headers;
-            }
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-//                params.put("param1", "value1");
-//                params.put("param2", "value2");
-                return params;
             }
         };
 
