@@ -36,6 +36,16 @@ public class AccountController {
         return ResponseEntity.ok(accountRepository.findByUsernameId(specificUsername.getId()));
     }
 
+    @GetMapping("/get/USER")
+    List<Account> getUSERAccounts(){
+        return accountRepository.findByAccountType(AccountType.USER);
+    }
+
+    @GetMapping("/get/COMPANY")
+    List<Account> getCOMPANYAccounts(){
+        return accountRepository.findByAccountType(AccountType.COMPANY);
+    }
+
     @PostMapping("/create")
     String createAccount(@RequestBody CreateAccountDTO request){
 
