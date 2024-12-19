@@ -32,7 +32,6 @@ public class AccountController {
             String errorMessage = "Account with username: " + username + " does not exist";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
-
         return ResponseEntity.ok(accountRepository.findByUsernameId(specificUsername.getId()));
     }
 
