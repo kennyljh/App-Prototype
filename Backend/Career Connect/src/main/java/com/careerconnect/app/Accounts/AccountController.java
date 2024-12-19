@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/account")
@@ -46,30 +48,58 @@ public class AccountController {
     }
 
     @PostMapping("/create")
-    String createAccount(@RequestBody CreateAccountDTO request){
+    ResponseEntity<?> createAccount(@RequestBody CreateAccountDTO request){
 
         if (request.getAccountInfo() == null || request.getUsername() == null ||
             request.getUsername().isEmpty()){
-            return "Failure: Invalid data: " + request;
+            String errorMessage = "Failure: Invalid data: " + request;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+        }
+
+        if (usernameRepository.findByUsername(request.getUsername()) != null){
+            String errorMessage = "Failure: Username already taken";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
         }
 
         AccountInfoDTO accountInfo = request.getAccountInfo();
         if (accountInfo.getAccountType() == null) {
-            return "Failure: Account type is required";
+            String errorMessage = "Failure: Account type is required";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
         }
 
         AccountType accountType;
         try {
             accountType = AccountType.valueOf(accountInfo.getAccountType().toUpperCase());
         } catch (IllegalArgumentException e){
-            return "Failure: Invalid account type: " + accountInfo.getAccountType();
+            String errorMessage = "Failure: Invalid account type: " + accountInfo.getAccountType();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
         }
+
+        switch (accountType){
+
+            case USER -> {
+                Account account = getUSERAccount(request, accountType, accountInfo);
+                accountRepository.save(account);
+            }
+            case COMPANY -> {
+                //todo
+            }
+        }
+        Map<String, Boolean> status = new HashMap<>();
+        status.put("status", true);
+        return ResponseEntity.ok(status);
+    }
+
+    private static Account getUSERAccount(CreateAccountDTO request, AccountType accountType, AccountInfoDTO accountInfo) {
 
         Username username = new Username(request.getUsername());
         Account account = new Account(accountType, username);
-
-        accountRepository.save(account);
-
-        return "Success: Account created";
+        account.setFirstName(accountInfo.getFirstName());
+        account.setMiddleName(accountInfo.getMiddleName());
+        account.setLastName(accountInfo.getLastName());
+        account.setPassword(accountInfo.getPassword());
+        account.setEmail(accountInfo.getEmail());
+        account.setPhoneNumber(accountInfo.getPhoneNumber());
+        return account;
     }
 }
