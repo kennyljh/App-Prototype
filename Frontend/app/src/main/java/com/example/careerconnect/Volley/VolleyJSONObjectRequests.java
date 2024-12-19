@@ -9,6 +9,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -71,7 +72,7 @@ public class VolleyJSONObjectRequests {
      * @param URL Given URL
      * @param callback VolleyCallback instance
      */
-    public void makeVolleyJSONObjectPOSTRequest(JSONObject jsonBody, Context context, String URL, final VolleyCallback callback) {
+    public static void makeVolleyJSONObjectPOSTRequest(JSONObject jsonBody, Context context, String URL, final VolleyCallback callback) {
 
         Log.d("VOLLEY JSONObject POST REQUEST SENT ITEM", String.valueOf(jsonBody));
         final String mRequestBody = jsonBody.toString();
@@ -80,14 +81,18 @@ public class VolleyJSONObjectRequests {
                 Request.Method.POST,
                 URL,
                 jsonBody,
-                new Response.Listener<JSONObject>() {
+                    new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Handle the successful response here
                         Log.d("Volley String POST Response", String.valueOf(response));
 
                         // Pass success to the callback
-                        callback.onResult(true);
+                        try {
+                            callback.onResult(response.getBoolean("status"));
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -274,6 +279,10 @@ public class VolleyJSONObjectRequests {
         void onResult(boolean result);
     }
 
+    /**
+     * Callback to account for the asynchronous property of
+     * Volley requests
+     */
     public interface VolleyJSONObjectCallback {
 
         void onResult(boolean result);
