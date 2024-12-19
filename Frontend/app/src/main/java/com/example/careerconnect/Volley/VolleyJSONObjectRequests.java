@@ -12,8 +12,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class VolleyJSONObjectRequests {
 
@@ -23,7 +21,7 @@ public class VolleyJSONObjectRequests {
      * @param URL Given URL
      * @param callback VolleyCallback instance
      */
-    public void makeVolleyJSONObjectGETRequest(Context context, String URL, final VolleyCallback callback) {
+    public static void makeVolleyJSONObjectGETRequest(Context context, String URL, final VolleyJSONObjectCallback callback) {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -36,6 +34,7 @@ public class VolleyJSONObjectRequests {
                         Log.d("Volley JSONObject GET Response", String.valueOf(response));
 
                         // Pass success to the callback
+                        callback.onJSONObject(response);
                         callback.onResult(true);
                     }
                 },
@@ -55,6 +54,7 @@ public class VolleyJSONObjectRequests {
                         }
 
                         // Pass failure to the callback
+                        callback.onJSONObject(null);
                         callback.onResult(false);
                     }
                 }
@@ -272,5 +272,12 @@ public class VolleyJSONObjectRequests {
     public interface VolleyCallback {
 
         void onResult(boolean result);
+    }
+
+    public interface VolleyJSONObjectCallback {
+
+        void onResult(boolean result);
+
+        void onJSONObject(JSONObject jsonObject);
     }
 }
