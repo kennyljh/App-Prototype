@@ -1,11 +1,21 @@
-package com.careerconnect.app.Accounts;
+package com.careerconnect.app.UserProfiles;
 
-/**
- * Data Transfer Object for account information
- */
-public class AccountInfoDTO {
+import com.careerconnect.app.Accounts.Account;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
-    private String accountType;
+@Entity
+@Table(name = "user_profile")
+public class UserProfile {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne(mappedBy = "userProfile")
+    @JsonIgnore
+    private Account account;
+
     private String firstName;
     private String middleName;
     private String lastName;
@@ -13,12 +23,33 @@ public class AccountInfoDTO {
     private String email;
     private String phoneNumber;
 
-    public String getAccountType() {
-        return accountType;
+    public UserProfile(){}
+
+    public UserProfile(String firstName, String middleName, String lastName,
+                       String password, String email, String phoneNumber){
+
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public String getFirstName() {
