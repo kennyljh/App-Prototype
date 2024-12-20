@@ -1,5 +1,7 @@
 package com.careerconnect.app.Accounts;
 
+import com.careerconnect.app.UserProfiles.UserProfile;
+import com.careerconnect.app.UserProfiles.UserProfileDTO;
 import com.careerconnect.app.Usernames.Username;
 import com.careerconnect.app.Usernames.UsernameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,8 @@ public class AccountController {
 
         Username specificUsername = usernameRepository.findByUsername(username);
         if (specificUsername == null){
-            String errorMessage = "Account with username: " + username + " does not exist";
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+            String errorMsg = "Account with username: " + username + " does not exist";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMsg);
         }
         return ResponseEntity.ok(accountRepository.findByUsernameId(specificUsername.getId()));
     }
@@ -52,33 +54,38 @@ public class AccountController {
 
         if (request.getAccountInfo() == null || request.getUsername() == null ||
             request.getUsername().isEmpty()){
-            String errorMessage = "Failure: Invalid data: " + request;
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+            String errorMsg = "Failure: Invalid data";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
         }
 
         if (usernameRepository.findByUsername(request.getUsername()) != null){
-            String errorMessage = "Failure: Username already taken";
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
+            String errorMsg = "Failure: Username already taken";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMsg);
         }
 
-        AccountInfoDTO accountInfo = request.getAccountInfo();
+        AccountDTO accountInfo = request.getAccountInfo();
         if (accountInfo.getAccountType() == null) {
-            String errorMessage = "Failure: Account type is required";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+            String errorMsg = "Failure: Account type is required";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
         }
 
         AccountType accountType;
         try {
             accountType = AccountType.valueOf(accountInfo.getAccountType().toUpperCase());
         } catch (IllegalArgumentException e){
-            String errorMessage = "Failure: Invalid account type: " + accountInfo.getAccountType();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+            String errorMsg = "Failure: Invalid account type: " + accountInfo.getAccountType();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
         }
 
         switch (accountType){
 
             case USER -> {
-                Account account = getUSERAccount(request, accountType, accountInfo);
+                
+                if (request.getUserProfileInfo() == null){
+                    String errorMsg = "Failure: Required user profile information not found";
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
+                }
+                Account account = createUSERAccount(request.getUsername(), accountType, request.getUserProfileInfo());
                 accountRepository.save(account);
             }
             case COMPANY -> {
@@ -86,20 +93,23 @@ public class AccountController {
             }
         }
         Map<String, Boolean> status = new HashMap<>();
-        status.put("status", true);
+        status.put("success", true);
         return ResponseEntity.ok(status);
     }
 
-    private static Account getUSERAccount(CreateAccountDTO request, AccountType accountType, AccountInfoDTO accountInfo) {
+    private static Account createUSERAccount(String newUsername, AccountType accountType, UserProfileDTO userProfileDTO) {
 
-        Username username = new Username(request.getUsername());
+        Username username = new Username(newUsername);
         Account account = new Account(accountType, username);
-        account.setFirstName(accountInfo.getFirstName());
-        account.setMiddleName(accountInfo.getMiddleName());
-        account.setLastName(accountInfo.getLastName());
-        account.setPassword(accountInfo.getPassword());
-        account.setEmail(accountInfo.getEmail());
-        account.setPhoneNumber(accountInfo.getPhoneNumber());
+        UserProfile userProfile = new UserProfile(
+                userProfileDTO.getFirstName(),
+                userProfileDTO.getMiddleName(),
+                userProfileDTO.getLastName(),
+                userProfileDTO.getPassword(),
+                userProfileDTO.getEmail(),
+                userProfileDTO.getPhoneNumber()
+        );
+        account.setUserProfile(userProfile);
         return account;
     }
 }

@@ -1,5 +1,7 @@
 package com.careerconnect.app.Accounts;
 
+import com.careerconnect.app.UserProfiles.UserProfileDTO;
+
 /**
  * Data Transfer Object for account information and username
  *
@@ -21,15 +23,16 @@ package com.careerconnect.app.Accounts;
  */
 public class CreateAccountDTO {
 
-    private AccountInfoDTO accountInfoDTO;
+    private AccountDTO accountInfo;
     private String username;
+    private UserProfileDTO userProfileInfo;
 
-    public AccountInfoDTO getAccountInfo() {
-        return accountInfoDTO;
+    public AccountDTO getAccountInfo() {
+        return accountInfo;
     }
 
-    public void setAccountInfo(AccountInfoDTO accountInfoDTO) {
-        this.accountInfoDTO = accountInfoDTO;
+    public void setAccountInfo(AccountDTO accountInfo) {
+        this.accountInfo = accountInfo;
     }
 
     public String getUsername() {
@@ -38,5 +41,13 @@ public class CreateAccountDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public UserProfileDTO getUserProfileInfo() {
+        return userProfileInfo;
+    }
+
+    public void setUserProfileInfo(UserProfileDTO userProfileInfo) {
+        this.userProfileInfo = userProfileInfo;
     }
 }
