@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.careerconnect.R;
 import com.example.careerconnect.Volley.VolleyJSONObjectRequests;
+import com.example.careerconnect.Volley.VolleyStringRequests;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,9 +38,12 @@ public class UserSignupActivity extends AppCompatActivity {
         Button signupButton = findViewById(R.id.signup_button);
         Button backButton = findViewById(R.id.back_button);
 
+        /**
+         * Button for checking if a desired username is available
+         */
         checkUsernameButton.setOnClickListener(v -> {
 
-            VolleyJSONObjectRequests.makeVolleyJSONObjectGETRequest(getApplicationContext(), "http://10.0.2.2:8080/username/check/" + usernameEdtTxt.getText().toString(), new VolleyJSONObjectRequests.VolleyJSONObjectCallback() {
+            VolleyStringRequests.makeVolleyStringGETRequest(getApplicationContext(), LibraryURL.getUsernameCheckGETRequest() + usernameEdtTxt.getText().toString(), new VolleyStringRequests.VolleyStringCallback() {
                 @Override
                 public void onResult(boolean result) {
 
@@ -49,25 +53,21 @@ public class UserSignupActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onJSONObject(JSONObject jsonObject) {
+                public void onString(String string) {
 
-                    if (jsonObject != null){
-
-                        try {
-                            if (jsonObject.getBoolean("availability")){
-                                Toast.makeText(getApplicationContext(), "This username is available", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(), "This username is already taken", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e){
-                            throw new RuntimeException(e);
-                        }
+                    if (string != null) {
+                        Toast.makeText(getApplicationContext(), "This username is available", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "This username has been taken", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         });
 
+        /**
+         * Button to initialize account creation
+         */
         signupButton.setOnClickListener(v -> {
 
             String firstName = firstNameEdtTxt .getText().toString();
@@ -84,28 +84,11 @@ public class UserSignupActivity extends AppCompatActivity {
                                         phoneNumber) &&
                 passwordValidation(password, confirmPassword)){
 
-                JSONObject accountInfo = new JSONObject();
-                try {
-                    accountInfo.put("firstName", firstName);
-                    accountInfo.put("middleName", middleName);
-                    accountInfo.put("lastName", lastName);
-                    accountInfo.put("password", password);
-                    accountInfo.put("email",  email);
-                    accountInfo.put("phoneNumber", phoneNumber);
-                    accountInfo.put("accountType", "USER");
-                } catch (JSONException e){
-                    throw new RuntimeException(e);
-                }
+                JSONObject signupInfo = accountInfoToJSONObject(firstName, middleName, lastName,
+                                                                username, password, email,
+                                                                phoneNumber);
 
-                JSONObject signupInfo = new JSONObject();
-                try {
-                    signupInfo.put("accountInfo", accountInfo);
-                    signupInfo.put("username", username);
-                } catch (JSONException e){
-                    throw new RuntimeException(e);
-                }
-
-                VolleyJSONObjectRequests.makeVolleyJSONObjectGETRequest(getApplicationContext(), "http://10.0.2.2:8080/username/check/" + usernameEdtTxt.getText().toString(), new VolleyJSONObjectRequests.VolleyJSONObjectCallback() {
+                VolleyStringRequests.makeVolleyStringGETRequest(getApplicationContext(), LibraryURL.getUsernameCheckGETRequest() + usernameEdtTxt.getText().toString(), new VolleyStringRequests.VolleyStringCallback() {
                     @Override
                     public void onResult(boolean result) {
 
@@ -115,35 +98,31 @@ public class UserSignupActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onJSONObject(JSONObject jsonObject) {
+                    public void onString(String string) {
 
-                        if (jsonObject != null){
+                        if (string != null){
 
-                            try {
-                                if (jsonObject.getBoolean("availability")){
+                            VolleyJSONObjectRequests.makeVolleyJSONObjectPOSTRequest(signupInfo, getApplicationContext(), LibraryURL.getAccountCreationPOSTRequest(), result -> {
 
-                                    VolleyJSONObjectRequests.makeVolleyJSONObjectPOSTRequest(signupInfo, getApplicationContext(), "http://10.0.2.2:8080/account/create", result -> {
-
-                                        if (result){
-                                            Toast.makeText(getApplicationContext(), "Account successfully created", Toast.LENGTH_SHORT).show();
-                                        }
-                                        else {
-                                            Toast.makeText(getApplicationContext(), "Account creation unsuccessful", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                                if (result){
+                                    Toast.makeText(getApplicationContext(), "Account successfully created", Toast.LENGTH_SHORT).show();
                                 }
                                 else {
-                                    Toast.makeText(getApplicationContext(), "This username is already taken", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Account creation unsuccessful. Try again", Toast.LENGTH_SHORT).show();
                                 }
-                            } catch (JSONException e){
-                                throw new RuntimeException(e);
-                            }
+                            });
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "This username has been taken", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
         });
 
+        /**
+         * Button to return to starting screen
+         */
         backButton.setOnClickListener(v -> {
 
             Intent intent = new Intent(UserSignupActivity.this, LoginSignupSelectionActivity.class);
@@ -152,6 +131,17 @@ public class UserSignupActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks if all required account information has been entered
+     * @param firstName client first name
+     * @param lastName client last name
+     * @param username client desired username
+     * @param password client password
+     * @param confirmPassword client password confirmation
+     * @param email client email
+     * @param phoneNumber client phone number
+     * @return true if successful, otherwise false
+     */
     private boolean signupInfoConfirmation(String firstName, String lastName, String username,
                                            String password, String confirmPassword, String email,
                                            String phoneNumber){
@@ -166,6 +156,13 @@ public class UserSignupActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Checks if password matches password confirmation, and has at least one capital letter
+     * and one special character.
+     * @param password client password
+     * @param confirmPassword client password confirmation
+     * @return true if successful, false otherwise
+     */
     private boolean passwordValidation(String password, String confirmPassword){
 
         if (password.equals(confirmPassword)){
@@ -179,7 +176,7 @@ public class UserSignupActivity extends AppCompatActivity {
             }
             else {
 
-                Toast.makeText(getApplicationContext(), "Password must contain at least one upper case and special character", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Password must contain at least one upper case and special character", Toast.LENGTH_LONG).show();
                 return false;
             }
         }
@@ -190,5 +187,47 @@ public class UserSignupActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Returns JSONObject of all account information
+     * @param firstName client first name
+     * @param lastName client last name
+     * @param username client desired username
+     * @param password client password
+     * @param email client email
+     * @param phoneNumber client phone number
+     * @return JSONObject of account information
+     */
+    private JSONObject accountInfoToJSONObject(String firstName, String middleName, String lastName,
+                                               String username, String password, String email,
+                                               String phoneNumber){
 
+        JSONObject userProfileInfo = new JSONObject();
+        try {
+            userProfileInfo.put("firstName", firstName);
+            userProfileInfo.put("middleName", middleName);
+            userProfileInfo.put("lastName", lastName);
+            userProfileInfo.put("password", password);
+            userProfileInfo.put("email", email);
+            userProfileInfo.put("phoneNumber", phoneNumber);
+        } catch (JSONException e){
+            throw new RuntimeException(e);
+        }
+
+        JSONObject accountTypeInfo = new JSONObject();
+        try {
+            accountTypeInfo.put("accountType", "USER");
+        } catch (JSONException e){
+            throw new RuntimeException(e);
+        }
+
+        JSONObject signupInfo = new JSONObject();
+        try {
+            signupInfo.put("accountInfo", accountTypeInfo);
+            signupInfo.put("userProfileInfo", userProfileInfo);
+            signupInfo.put("username",username);
+        } catch (JSONException e){
+            throw new RuntimeException(e);
+        }
+        return signupInfo;
+    }
 }
