@@ -1,5 +1,6 @@
 package com.careerconnect.app.Accounts;
 
+import com.careerconnect.app.CompanyProfiles.CompanyProfileDTO;
 import com.careerconnect.app.UserProfiles.UserProfileDTO;
 
 /**
@@ -26,6 +27,7 @@ public class CreateAccountDTO {
     private AccountDTO accountInfo;
     private String username;
     private UserProfileDTO userProfileInfo;
+    private CompanyProfileDTO companyProfileInfo;
 
     public AccountDTO getAccountInfo() {
         return accountInfo;
@@ -49,5 +51,13 @@ public class CreateAccountDTO {
 
     public void setUserProfileInfo(UserProfileDTO userProfileInfo) {
         this.userProfileInfo = userProfileInfo;
+    }
+
+    public CompanyProfileDTO getCompanyProfileInfo() {
+        return companyProfileInfo;
+    }
+
+    public void setCompanyProfileInfo(CompanyProfileDTO companyProfileInfo) {
+        this.companyProfileInfo = companyProfileInfo;
     }
 }

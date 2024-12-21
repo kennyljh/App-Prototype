@@ -1,4 +1,6 @@
 package com.careerconnect.app.CompanyProfiles;
 
-public class CompanyProfileRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CompanyProfileRepository extends JpaRepository<CompanyProfile, Long> {
 }
