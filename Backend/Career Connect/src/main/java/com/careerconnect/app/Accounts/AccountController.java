@@ -1,5 +1,7 @@
 package com.careerconnect.app.Accounts;
 
+import com.careerconnect.app.CompanyProfiles.CompanyProfile;
+import com.careerconnect.app.CompanyProfiles.CompanyProfileDTO;
 import com.careerconnect.app.UserProfiles.UserProfile;
 import com.careerconnect.app.UserProfiles.UserProfileDTO;
 import com.careerconnect.app.Usernames.Username;
@@ -89,7 +91,13 @@ public class AccountController {
                 accountRepository.save(account);
             }
             case COMPANY -> {
-                //todo
+
+                if (request.getCompanyProfileInfo() == null){
+                    String errorMsg = "Failure: Required user profile information not found";
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
+                }
+                Account account = createCOMPANYAccount(request.getUsername(), accountType, request.getCompanyProfileInfo());
+                accountRepository.save(account);
             }
         }
         Map<String, Boolean> status = new HashMap<>();
@@ -97,7 +105,7 @@ public class AccountController {
         return ResponseEntity.ok(status);
     }
 
-    private static Account createUSERAccount(String newUsername, AccountType accountType, UserProfileDTO userProfileDTO) {
+    private Account createUSERAccount(String newUsername, AccountType accountType, UserProfileDTO userProfileDTO) {
 
         Username username = new Username(newUsername);
         Account account = new Account(accountType, username);
@@ -110,6 +118,20 @@ public class AccountController {
                 userProfileDTO.getPhoneNumber()
         );
         account.setUserProfile(userProfile);
+        return account;
+    }
+
+    private Account createCOMPANYAccount(String newUsername, AccountType accountType, CompanyProfileDTO companyProfileDTO){
+
+        Username username = new Username(newUsername);
+        Account account = new Account(accountType, username);
+        CompanyProfile companyProfile = new CompanyProfile(
+                companyProfileDTO.getBrandName(),
+                companyProfileDTO.getPassword(),
+                companyProfileDTO.getEmail(),
+                companyProfileDTO.getPhoneNumber()
+        );
+        account.setCompanyProfile(companyProfile);
         return account;
     }
 }

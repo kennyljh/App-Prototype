@@ -1,5 +1,6 @@
 package com.careerconnect.app.Accounts;
 
+import com.careerconnect.app.CompanyProfiles.CompanyProfile;
 import com.careerconnect.app.UserProfiles.UserProfile;
 import com.careerconnect.app.Usernames.Username;
 import jakarta.persistence.*;
@@ -23,6 +24,10 @@ public class Account {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_profile_id")
+    private CompanyProfile companyProfile;
 
     public Account(){}
 
@@ -61,5 +66,13 @@ public class Account {
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+
+    public CompanyProfile getCompanyProfile() {
+        return companyProfile;
+    }
+
+    public void setCompanyProfile(CompanyProfile companyProfile) {
+        this.companyProfile = companyProfile;
     }
 }
