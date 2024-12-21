@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create User Account"
+        android:text="Create Company Account"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
         android:layout_marginTop="20dp"
@@ -37,71 +37,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="First Name: "
+                android:text="Company/\nBrand Name: "
                 android:textSize="20sp"
                 android:textColor="#000000">
             </TextView>
 
             <EditText
-                android:id="@+id/firstName_edittext"
+                android:id="@+id/brandName_edittext"
                 android:layout_width="197dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:background="@drawable/edittext_border"
                 android:padding="5dp"
                 android:theme="@style/EditTextBoxStyle">
             </EditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Middle Name: "
-                android:textSize="20sp"
-                android:textColor="#000000">
-            </TextView>
-
-            <EditText
-                android:id="@+id/middleName_edittext"
-                android:layout_width="177dp"
-                android:layout_height="40dp"
-                android:background="@drawable/edittext_border"
-                android:hint="Optional"
-                android:theme="@style/EditTextBoxStyle">
-
-            </EditText>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Last Name: "
-                android:textSize="20sp"
-                android:textColor="#000000">
-            </TextView>
-
-            <EditText
-                android:id="@+id/lastName_edittext"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:background="@drawable/edittext_border"
-                android:theme="@style/EditTextBoxStyle">
-            </EditText>
-
         </LinearLayout>
 
         <LinearLayout
@@ -121,7 +70,7 @@
 
             <EditText
                 android:id="@+id/username_edittext"
-                android:layout_width="146dp"
+                android:layout_width="157dp"
                 android:layout_height="40dp"
                 android:background="@drawable/edittext_border"
                 android:hint="This is Unique"
@@ -134,7 +83,7 @@
                 android:layout_height="40dp"
                 android:textAllCaps="false"
                 android:text="Check"
-                android:layout_marginStart="3dp"
+                android:layout_marginLeft="3dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/rounded_button">
             </Button>
@@ -166,7 +115,7 @@
 
             <EditText
                 android:id="@+id/password_edittext"
-                android:layout_width="205dp"
+                android:layout_width="218dp"
                 android:layout_height="40dp"
                 android:background="@drawable/edittext_border"
                 android:inputType="textPassword"
@@ -191,7 +140,7 @@
 
             <EditText
                 android:id="@+id/confirm_password_edittext"
-                android:layout_width="206dp"
+                android:layout_width="218dp"
                 android:layout_height="40dp"
                 android:layout_gravity="bottom"
                 android:background="@drawable/edittext_border"
@@ -219,7 +168,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email:     "
+                android:text="Company\nEmail:"
                 android:layout_gravity="center"
                 android:textSize="20sp"
                 android:textColor="#000000">
@@ -227,8 +176,10 @@
 
             <EditText
                 android:id="@+id/email_edittext"
-                android:layout_width="224dp"
+                android:layout_width="223dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
                 android:background="@drawable/edittext_border"
                 android:inputType="textEmailAddress"
                 android:theme="@style/EditTextBoxStyle">
@@ -245,6 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phone\nNumber: "
+                android:layout_marginEnd="3dp"
                 android:layout_gravity="center"
                 android:textSize="20sp"
                 android:textColor="#000000">
@@ -252,9 +204,10 @@
 
             <EditText
                 android:id="@+id/phone_number_edittext"
-                android:layout_width="222dp"
+                android:layout_width="226dp"
                 android:layout_height="40dp"
                 android:layout_gravity="bottom"
+                android:layout_marginStart="5dp"
                 android:background="@drawable/edittext_border"
                 android:inputType="textPhonetic"
                 android:theme="@style/EditTextBoxStyle">
@@ -294,4 +247,6 @@
         android:background="@drawable/rounded_button"
         android:textColor="#ffffff">
     </Button>
+
+
 </androidx.appcompat.widget.LinearLayoutCompat>
