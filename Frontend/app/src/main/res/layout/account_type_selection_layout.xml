@@ -13,14 +13,17 @@
         android:textSize="28dp"
         android:layout_gravity="center_horizontal"
         android:padding="10dp"
-        android:textColor="@color/cobalt_blue">
+        android:textColor="@color/white"
+        android:background="@drawable/element_background"
+        android:backgroundTint="@color/cobalt_blue">
     </TextView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:paddingBottom="100dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp">
 
         <Button
             android:id="@+id/user_selection_btn"
@@ -51,4 +54,63 @@
         </Button>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:background="@drawable/element_background"
+        android:backgroundTint="@color/light_grey"
+        android:padding="10dp"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What's the difference?"
+            android:textColor="@color/cobalt_blue"
+            android:textAlignment="center"
+            android:textSize="30dp">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:background="@drawable/element_background"
+            android:backgroundTint="@color/cobalt_blue">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="3dp"
+                android:padding="5dp"
+                android:layout_weight="1"
+                android:text="User accounts are not able to create posts, but have full access to Career Cluster communities and personalized Chatrooms."
+                android:textColor="@color/white"
+                android:textSize="16dp">
+            </TextView>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="3dp"
+                android:padding="5dp"
+                android:layout_weight="1"
+                android:text="Company accounts must be verified, but have the ability to create posts and engage with the wider community (userbase).\n"
+                android:textColor="@color/white"
+                android:textSize="16dp">
+            </TextView>
+
+        </LinearLayout>
+    </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
