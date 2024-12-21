@@ -22,14 +22,11 @@ public class UsernameController {
     ResponseEntity<?> checkUsernameAvailability(@PathVariable String username){
 
         Username specifiedUsername = usernameRepository.findByUsername(username);
-        Map<String, Boolean> response = new HashMap<>();
 
-        if (specifiedUsername == null){
-            response.put("availability", true);
+        if (specifiedUsername != null){
+            String errorMsg = "Failure: Username already taken";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
         }
-        else {
-            response.put("availability", false);
-        }
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(username);
     }
 }

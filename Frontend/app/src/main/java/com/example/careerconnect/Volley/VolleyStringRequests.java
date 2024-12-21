@@ -10,6 +10,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +27,7 @@ public class VolleyStringRequests {
      * @param URL Given URL
      * @param callback VolleyCallback instance
      */
-    public void makeVolleyStringGETRequest(Context context, String URL, final VolleyCallback callback) {
+    public static void makeVolleyStringGETRequest(Context context, String URL, final VolleyStringCallback callback) {
 
         StringRequest stringRequest = new StringRequest(
                 Request.Method.GET,
@@ -38,6 +40,7 @@ public class VolleyStringRequests {
                         
                         // Pass success to the callback
                         callback.onResult(true);
+                        callback.onString(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -53,14 +56,17 @@ public class VolleyStringRequests {
                             // Log the response body (if any)
                             String responseBody = new String(error.networkResponse.data);
                             Log.e("Volley String GET Error", "Response Body: " + responseBody);
+
+                            callback.onResult(statusCode >= 400 && statusCode < 500);
                         }
-                        
+                        else {
+                            callback.onResult(false);
+                        }
                         // Pass failure to the callback
-                        callback.onResult(false);
+                        callback.onString(null);
                     }
                 }
         );
-
         // Adding request to request queue
         VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
@@ -267,5 +273,16 @@ public class VolleyStringRequests {
     public interface VolleyCallback {
 
         void onResult(boolean result);
+    }
+
+    /**
+     * String Callback to account for the asynchronous property
+     * of Volley requests
+     */
+    public interface VolleyStringCallback {
+
+        void onResult(boolean result);
+
+        void onString(String string);
     }
 }

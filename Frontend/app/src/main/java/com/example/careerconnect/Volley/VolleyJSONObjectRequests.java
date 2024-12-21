@@ -52,15 +52,17 @@ public class VolleyJSONObjectRequests {
                             // Log the response body (if any)
                             String responseBody = new String(error.networkResponse.data);
                             Log.e("Volley JSONObject GET Error", "Response Body: " + responseBody);
-                        }
 
+                            callback.onResult(statusCode >= 400 && statusCode < 500);
+                        }
+                        else {
+                            callback.onResult(false);
+                        }
                         // Pass failure to the callback
                         callback.onJSONObject(null);
-                        callback.onResult(false);
                     }
                 }
         );
-
         // Adding request to request queue
         VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
@@ -89,7 +91,7 @@ public class VolleyJSONObjectRequests {
 
                         // Pass success to the callback
                         try {
-                            callback.onResult(response.getBoolean("status"));
+                            callback.onResult(response.getBoolean("success"));
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -115,7 +117,6 @@ public class VolleyJSONObjectRequests {
                     }
                 }
         ) {
-
             @Override
             public String getBodyContentType() {
                 return "application/json; charset=utf-8";
@@ -131,7 +132,6 @@ public class VolleyJSONObjectRequests {
                 }
             }
         };
-
         // Adding request to request queue
         VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
@@ -143,7 +143,7 @@ public class VolleyJSONObjectRequests {
      * @param URL Given URL
      * @param callback VolleyCallback instance
      */
-    public void makeVolleyJSONObjectPUTRequest(JSONObject jsonBody, Context context, String URL, final VolleyCallback callback) {
+    public static void makeVolleyJSONObjectPUTRequest(JSONObject jsonBody, Context context, String URL, final VolleyCallback callback) {
 
         Log.d("VOLLEY JSONObject PUT REQUEST SENT ITEM", String.valueOf(jsonBody));
         final String mRequestBody = jsonBody.toString();
@@ -159,7 +159,11 @@ public class VolleyJSONObjectRequests {
                         Log.d("Volley JSONObject PUT Response", String.valueOf(response));
 
                         // Pass success to the callback
-                        callback.onResult(true);
+                        try {
+                            callback.onResult(response.getBoolean("success"));
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -182,7 +186,6 @@ public class VolleyJSONObjectRequests {
                     }
                 }
         ) {
-
             @Override
             public String getBodyContentType() {
                 return "application/json; charset=utf-8";
@@ -198,7 +201,6 @@ public class VolleyJSONObjectRequests {
                 }
             }
         };
-
         // Adding request to request queue
         VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
@@ -210,7 +212,7 @@ public class VolleyJSONObjectRequests {
      * @param URL Given URL
      * @param callback VolleyCallback instance
      */
-    public void makeVolleyJSONObjectDELETERequest(JSONObject jsonBody, Context context, String URL, final VolleyCallback callback) {
+    public static void makeVolleyJSONObjectDELETERequest(JSONObject jsonBody, Context context, String URL, final VolleyCallback callback) {
 
         Log.d("VOLLEY JSONObject DELETE REQUEST SENT ITEM", String.valueOf(jsonBody));
         final String mRequestBody = jsonBody.toString();
@@ -226,7 +228,11 @@ public class VolleyJSONObjectRequests {
                         Log.d("Volley JSONObject DELETE Response", String.valueOf(response));
 
                         // Pass success to the callback
-                        callback.onResult(true);
+                        try {
+                            callback.onResult(response.getBoolean("success"));
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -249,7 +255,6 @@ public class VolleyJSONObjectRequests {
                     }
                 }
         ) {
-
             @Override
             public String getBodyContentType() {
                 return "application/json; charset=utf-8";
@@ -265,7 +270,6 @@ public class VolleyJSONObjectRequests {
                 }
             }
         };
-
         // Adding request to request queue
         VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
@@ -280,8 +284,8 @@ public class VolleyJSONObjectRequests {
     }
 
     /**
-     * Callback to account for the asynchronous property of
-     * Volley requests
+     * JSONObject Callback to account for the asynchronous property
+     * of Volley requests
      */
     public interface VolleyJSONObjectCallback {
 
