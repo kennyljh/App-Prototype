@@ -77,20 +77,10 @@ public class AccountController {
         switch (accountType){
 
             case USER -> {
-                
-                if (request.getUserProfileInfo() == null){
-                    String errorMsg = "Failure: Required user profile information not found";
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
-                }
                 Account account = createUSERAccount(request.getUsername(), accountType, request.getUserProfileInfo());
                 accountRepository.save(account);
             }
             case COMPANY -> {
-
-                if (request.getCompanyProfileInfo() == null){
-                    String errorMsg = "Failure: Required user profile information not found";
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
-                }
                 Account account = createCOMPANYAccount(request.getUsername(), accountType, request.getCompanyProfileInfo());
                 accountRepository.save(account);
             }
