@@ -42,6 +42,17 @@ public class AccountController {
         return ResponseEntity.ok(accountRepository.findByUsernameId(specificUsername.getId()));
     }
 
+    @GetMapping("/get/accountType/{username}")
+    ResponseEntity<?> getAccountType(@PathVariable String username){
+
+        Username specificUsername = usernameRepository.findByUsername(username);
+        if (specificUsername == null){
+            String errorMsg = "Account with username: " + username + " does not exist";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMsg);
+        }
+        return ResponseEntity.ok(accountRepository.findByUsernameId(specificUsername.getId()).getAccountType().toString());
+    }
+
     @GetMapping("/get/USER")
     List<Account> getUSERAccounts(){
         return accountRepository.findByAccountType(AccountType.USER);
