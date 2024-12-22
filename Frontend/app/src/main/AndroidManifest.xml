@@ -25,7 +25,7 @@
 <!--            android:name=".LoginSignupElements.CareerClusterSelection"-->
 <!--            android:exported="false"/>-->
         <activity
-            android:name=".LoginSignupElements.CareerClusterSelection"
+            android:name=".LoginSignupElements.CareerClusterSelectionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
