@@ -4,6 +4,7 @@ import com.careerconnect.app.Accounts.Account;
 import com.careerconnect.app.Accounts.AccountRepository;
 import com.careerconnect.app.Usernames.Username;
 import com.careerconnect.app.Usernames.UsernameRepository;
+import jakarta.validation.Valid;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,17 +34,12 @@ public class CareerClusterController {
     }
 
     @PostMapping("/post/{username}")
-    ResponseEntity<?> addCareerClusters(@PathVariable String username, @RequestBody CareerClusterDTO request){
+    ResponseEntity<?> addCareerClusters(@PathVariable String username, @Valid @RequestBody CareerClusterDTO request){
 
         Username specificUsername = usernameRepository.findByUsername(username);
         if (specificUsername == null){
             String errorMsg = "Account with username: " + username + " does not exist";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMsg);
-        }
-
-        if (request == null){
-            String errorMsg = "Failure: Invalid career cluster information";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
         }
 
         Account account = accountRepository.findByUsernameId(specificUsername.getId());
