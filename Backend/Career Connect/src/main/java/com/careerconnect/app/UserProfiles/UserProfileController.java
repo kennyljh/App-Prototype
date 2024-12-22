@@ -4,6 +4,7 @@ import com.careerconnect.app.Accounts.Account;
 import com.careerconnect.app.Accounts.AccountRepository;
 import com.careerconnect.app.Usernames.Username;
 import com.careerconnect.app.Usernames.UsernameRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,17 +44,12 @@ public class UserProfileController {
     }
 
     @PutMapping("/put/{username}")
-    ResponseEntity<?> updateSpecificProfile(@PathVariable String username, @RequestBody UserProfileDTO request){
+    ResponseEntity<?> updateSpecificProfile(@PathVariable String username, @RequestBody @Valid UserProfileDTO request){
 
         Username specificUsername = usernameRepository.findByUsername(username);
         if (specificUsername == null){
             String errorMsg = "Account with username: " + username + " does not exist";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMsg);
-        }
-
-        if (request == null){
-            String errorMsg = "Failure: Invalid profile information";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
         }
 
         UserProfile userProfile = accountRepository.findByUsernameId(specificUsername.getId()).getUserProfile();

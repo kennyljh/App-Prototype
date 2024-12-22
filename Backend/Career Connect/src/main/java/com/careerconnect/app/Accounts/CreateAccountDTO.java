@@ -2,6 +2,8 @@ package com.careerconnect.app.Accounts;
 
 import com.careerconnect.app.CompanyProfiles.CompanyProfileDTO;
 import com.careerconnect.app.UserProfiles.UserProfileDTO;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Data Transfer Object for account information and username
@@ -24,9 +26,16 @@ import com.careerconnect.app.UserProfiles.UserProfileDTO;
  */
 public class CreateAccountDTO {
 
+    @NotNull(message = "Account type information cannot be null")
     private AccountDTO accountInfo;
+
+    @NotNull(message = "Desired username cannot be null")
     private String username;
+
+    @Valid
     private UserProfileDTO userProfileInfo;
+
+    @Valid
     private CompanyProfileDTO companyProfileInfo;
 
     public AccountDTO getAccountInfo() {
