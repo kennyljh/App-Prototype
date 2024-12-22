@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/career_cluster_information_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Career Cluster selections would allow us to match you with individuals of similar interests.\n\nThis makes connecting you with like-minded individuals on the platform easier and more accurate."
+        android:textSize="20dp"
+        android:textColor="@color/cobalt_blue"
+        android:layout_margin="10dp"
+        android:padding="20dp"
+        android:background="@drawable/element_background">
+    </TextView>
+</androidx.appcompat.widget.LinearLayoutCompat>
