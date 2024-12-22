@@ -1,12 +1,23 @@
 package com.careerconnect.app.UserProfiles;
 
+import jakarta.validation.constraints.NotNull;
+
 public class UserProfileDTO {
 
+    @NotNull(message = "First name cannot be null")
     private String firstName;
     private String middleName;
+
+    @NotNull(message = "Last name cannot be null")
     private String lastName;
+
+    @NotNull(message = "Password cannot be null")
     private String password;
+
+    @NotNull(message = "Email cannot be null")
     private String email;
+
+    @NotNull(message = "Phone number cannot be null")
     private String phoneNumber;
 
     public String getFirstName() {

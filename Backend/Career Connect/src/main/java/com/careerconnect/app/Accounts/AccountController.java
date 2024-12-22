@@ -6,6 +6,7 @@ import com.careerconnect.app.UserProfiles.UserProfile;
 import com.careerconnect.app.UserProfiles.UserProfileDTO;
 import com.careerconnect.app.Usernames.Username;
 import com.careerconnect.app.Usernames.UsernameRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,13 +53,7 @@ public class AccountController {
     }
 
     @PostMapping("/create")
-    ResponseEntity<?> createAccount(@RequestBody CreateAccountDTO request){
-
-        if (request.getAccountInfo() == null || request.getUsername() == null ||
-            request.getUsername().isEmpty()){
-            String errorMsg = "Failure: Invalid data";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMsg);
-        }
+    ResponseEntity<?> createAccount(@RequestBody @Valid CreateAccountDTO request){
 
         if (usernameRepository.findByUsername(request.getUsername()) != null){
             String errorMsg = "Failure: Username already taken";

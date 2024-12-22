@@ -1,10 +1,19 @@
 package com.careerconnect.app.CompanyProfiles;
 
+import jakarta.validation.constraints.NotNull;
+
 public class CompanyProfileDTO {
 
+    @NotNull(message = "Company/Brand name cannot be null")
     private String brandName;
+
+    @NotNull(message = "Password cannot be null")
     private String password;
+
+    @NotNull(message = "Email cannot be null")
     private String email;
+
+    @NotNull(message = "Phone number cannot be null")
     private String phoneNumber;
 
     public String getBrandName() {
