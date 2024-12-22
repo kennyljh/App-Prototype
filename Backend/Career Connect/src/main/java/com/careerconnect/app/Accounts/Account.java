@@ -1,9 +1,12 @@
 package com.careerconnect.app.Accounts;
 
+import com.careerconnect.app.CareerClusters.CareerCluster;
 import com.careerconnect.app.CompanyProfiles.CompanyProfile;
 import com.careerconnect.app.UserProfiles.UserProfile;
 import com.careerconnect.app.Usernames.Username;
 import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "account")
@@ -28,6 +31,14 @@ public class Account {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "company_profile_id")
     private CompanyProfile companyProfile;
+
+    @ManyToMany
+    @JoinTable(
+            name= "account_career_cluster",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "career_cluster_id")
+    )
+    private Set<CareerCluster> careerClusters;
 
     public Account(){}
 
@@ -74,5 +85,13 @@ public class Account {
 
     public void setCompanyProfile(CompanyProfile companyProfile) {
         this.companyProfile = companyProfile;
+    }
+
+    public Set<CareerCluster> getCareerClusters() {
+        return careerClusters;
+    }
+
+    public void setCareerClusters(Set<CareerCluster> careerClusters) {
+        this.careerClusters = careerClusters;
     }
 }
