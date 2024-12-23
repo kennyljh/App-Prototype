@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Career Clusters"
+            android:text="Select 3\nCareer Clusters"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:layout_marginTop="20dp"
@@ -69,5 +69,4 @@
         android:background="@drawable/rounded_button"
         android:textColor="#ffffff">
     </Button>
-
 </androidx.appcompat.widget.LinearLayoutCompat>

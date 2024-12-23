@@ -6,13 +6,13 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/career_cluster_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/element_background"
         android:padding="10dp"
-        android:layout_marginVertical="5dp"
-        android:backgroundTint="@color/white">
+        android:layout_marginVertical="5dp">
 
         <ImageView
             android:id="@+id/career_cluster_icon_imageView"
@@ -27,7 +27,7 @@
             android:id="@+id/career_cluster_name_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Agriculture, Food &amp; Natural Resources"
+            android:text="Placeholder Text"
             android:textSize="20sp"
             android:layout_gravity="center"
             android:textColor="@color/black">

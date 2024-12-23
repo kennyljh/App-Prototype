@@ -106,6 +106,10 @@ public class UserSignupActivity extends AppCompatActivity {
 
                                 if (result){
                                     Toast.makeText(getApplicationContext(), "Account successfully created", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(UserSignupActivity.this, CareerClusterSelectionActivity.class);
+                                    intent.putExtra("USERNAME", username);
+                                    startActivity(intent);
+                                    finish();
                                 }
                                 else {
                                     Toast.makeText(getApplicationContext(), "Account creation unsuccessful. Try again", Toast.LENGTH_SHORT).show();

@@ -13,4 +13,8 @@ public class LibraryURL {
     public static String getCareerClustersGETRequest(){
         return "http://10.0.2.2:8080/careerCluster/get";
     }
+
+    public static String getCareerClustersPOSTRequest(){
+        return "http://10.0.2.2:8080/careerCluster/post/";
+    }
 }

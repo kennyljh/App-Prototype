@@ -10,6 +10,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -77,7 +78,7 @@ public class VolleyJSONArrayRequests {
      * @param URL Given URL
      * @param callback VolleyCallback instance
      */
-    public void makeVolleyJSONArrayPOSTRequest(JSONArray jsonBody, Context context, String URL, final VolleyCallback callback) {
+    public static void makeVolleyJSONArrayPOSTRequest(JSONArray jsonBody, Context context, String URL, final VolleyCallback callback) {
 
         Log.d("VOLLEY JSONArray POST REQUEST SENT ITEM", String.valueOf(jsonBody));
         final String mRequestBody = jsonBody.toString();
@@ -93,7 +94,12 @@ public class VolleyJSONArrayRequests {
                         Log.d("Volley JSONArray POST Response", String.valueOf(response));
 
                         // Pass success to the callback
-                        callback.onResult(true);
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(0);
+                            callback.onResult(jsonObject.getBoolean("success"));
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -144,7 +150,7 @@ public class VolleyJSONArrayRequests {
      * @param URL Given URL
      * @param callback VolleyCallback instance
      */
-    public void makeVolleyJSONArrayPUTRequest(JSONArray jsonBody, Context context, String URL, final VolleyCallback callback) {
+    public static void makeVolleyJSONArrayPUTRequest(JSONArray jsonBody, Context context, String URL, final VolleyCallback callback) {
 
         Log.d("VOLLEY JSONArray PUT REQUEST SENT ITEM", String.valueOf(jsonBody));
         final String mRequestBody = jsonBody.toString();
@@ -160,7 +166,12 @@ public class VolleyJSONArrayRequests {
                         Log.d("Volley JSONArray PUT Response", String.valueOf(response));
 
                         // Pass success to the callback
-                        callback.onResult(true);
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(0);
+                            callback.onResult(jsonObject.getBoolean("success"));
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -211,7 +222,7 @@ public class VolleyJSONArrayRequests {
      * @param URL Given URL
      * @param callback VolleyCallback instance
      */
-    public void makeVolleyJSONArrayDELETERequest(JSONArray jsonBody, Context context, String URL, final VolleyCallback callback) {
+    public static void makeVolleyJSONArrayDELETERequest(JSONArray jsonBody, Context context, String URL, final VolleyCallback callback) {
 
         Log.d("VOLLEY JSONArray DELETE REQUEST SENT ITEM", String.valueOf(jsonBody));
         final String mRequestBody = jsonBody.toString();
@@ -227,7 +238,12 @@ public class VolleyJSONArrayRequests {
                         Log.d("Volley JSONArray DELETE Response", String.valueOf(response));
 
                         // Pass success to the callback
-                        callback.onResult(true);
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(0);
+                            callback.onResult(jsonObject.getBoolean("success"));
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
