@@ -15,6 +15,9 @@ import com.example.careerconnect.Volley.VolleyStringRequests;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * An activity for clients to signup as a USER account
+ */
 public class UserSignupActivity extends AppCompatActivity {
 
     @Override

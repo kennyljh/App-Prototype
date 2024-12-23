@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.careerconnect.R;
 
+/**
+ * Gives clients the ability to Login, Signup, or enter as Guest
+ */
 public class LoginSignupSelectionActivity extends AppCompatActivity {
 
     @Override
@@ -24,6 +27,9 @@ public class LoginSignupSelectionActivity extends AppCompatActivity {
 
         });
 
+        /**
+         * Selected signup option
+         */
         signupButton.setOnClickListener(v -> {
 
             AccountTypeSelectionBottomSheetFragment bottomSheetFragment = new AccountTypeSelectionBottomSheetFragment(getApplicationContext());
@@ -33,7 +39,6 @@ public class LoginSignupSelectionActivity extends AppCompatActivity {
             bottomSheetFragment.setArguments(args);
 
             bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
-
         });
 
     }

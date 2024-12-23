@@ -12,6 +12,9 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.careerconnect.R;
 
+/**
+ * Dialog fragment for displaying Career Cluster selection information
+ */
 public class CareerClusterInfoDialogFragment extends DialogFragment {
 
 

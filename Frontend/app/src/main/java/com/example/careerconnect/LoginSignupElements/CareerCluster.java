@@ -2,6 +2,9 @@ package com.example.careerconnect.LoginSignupElements;
 
 import android.widget.ImageView;
 
+/**
+ * Defines the elements of a Career Cluster
+ */
 public class CareerCluster {
 
     private int id;

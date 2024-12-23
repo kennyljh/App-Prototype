@@ -1,5 +1,8 @@
 package com.example.careerconnect.LoginSignupElements;
 
+/**
+ * Stores URLs pertaining to the LoginSignupElements package
+ */
 public class LibraryURL {
 
     public static String getUsernameCheckGETRequest(){

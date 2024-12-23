@@ -33,6 +33,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Allows clients to select desired Career Clusters
+ */
 public class CareerClusterSelectionActivity extends AppCompatActivity {
 
     private final List<CareerCluster> careerClusterList = new ArrayList<>();
@@ -66,6 +69,9 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Retrieve list of Career Clusters
+     */
     private void getCareerClusters(){
 
         VolleyJSONArrayRequests.makeVolleyJSONArrayGETRequest(getApplicationContext(), LibraryURL.getCareerClustersGETRequest(), new VolleyJSONArrayRequests.VolleyJSONArrayCallback() {
@@ -86,6 +92,10 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Converts a JSONArray to Career Clusters
+     * @param jsonArray given JSONArray
+     */
     private void JSONArrayToCareerClusters(JSONArray jsonArray){
         try {
             careerClusterList.clear();
@@ -157,6 +167,9 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Submit desired list of Career Clusters
+     */
     private void sendCareerClusters(){
 
         if (selectedCareerClusters.isEmpty()){
@@ -179,6 +192,10 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Converts list of selected Career Clusters to JSONObject
+     * @return JSONObject of selected Career Clusters
+     */
     private JSONObject selectedClustersToJSONObject() {
 
         JSONArray jsonArray = new JSONArray();

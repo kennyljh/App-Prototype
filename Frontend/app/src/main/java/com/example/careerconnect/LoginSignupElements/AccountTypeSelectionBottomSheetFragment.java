@@ -11,6 +11,9 @@ import android.widget.Button;
 import com.example.careerconnect.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+/**
+ * Gives clients the option to choose between a USER or COMPANY type account
+ */
 public class AccountTypeSelectionBottomSheetFragment extends BottomSheetDialogFragment {
 
     private final Context context;
