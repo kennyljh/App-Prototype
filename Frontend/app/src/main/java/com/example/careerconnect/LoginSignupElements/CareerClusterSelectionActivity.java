@@ -7,14 +7,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +36,7 @@ import java.util.List;
 public class CareerClusterSelectionActivity extends AppCompatActivity {
 
     private final List<CareerCluster> careerClusterList = new ArrayList<>();
+    private List<CareerCluster> selectedCareerClusters = new ArrayList<>();
     private CareerClustersAdapter adapter;
 
     @Override
@@ -42,6 +46,7 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_career_cluster_selection);
 
         Button infoButton = findViewById(R.id.career_cluster_info_btn);
+        Button confirmButton = findViewById(R.id.confirm_button);
         RecyclerView careerClusterRecyclerView = findViewById(R.id.career_cluster_recyclerView);
 
         getCareerClusters();
@@ -49,12 +54,15 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         adapter = new CareerClustersAdapter(careerClusterList, getApplicationContext());
         careerClusterRecyclerView.setAdapter(adapter);
 
-        //todo
-
         infoButton.setOnClickListener(v -> {
 
             CareerClusterInfoDialogFragment dialog = new CareerClusterInfoDialogFragment();
             dialog.show(getSupportFragmentManager(), "Information");
+        });
+
+        confirmButton.setOnClickListener(v -> {
+
+            sendCareerClusters();
         });
     }
 
@@ -149,19 +157,74 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         }
     }
 
+    private void sendCareerClusters(){
+
+        if (selectedCareerClusters.isEmpty()){
+            Toast.makeText(getApplicationContext(), "Select at least one Career Cluster", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        VolleyJSONObjectRequests.makeVolleyJSONObjectPOSTRequest(selectedClustersToJSONObject(), getApplicationContext(),LibraryURL.getCareerClustersPOSTRequest() + "john123", new VolleyJSONObjectRequests.VolleyCallback() {
+            @Override
+            public void onResult(boolean result) {
+
+                if (!result){
+                    Toast.makeText(getApplicationContext(), "Failed to update selected career clusters", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Career cluster selection confirmed", Toast.LENGTH_SHORT).show();
+                    //todo
+                }
+            }
+        });
+    }
+
+    private JSONObject selectedClustersToJSONObject() {
+
+        JSONArray jsonArray = new JSONArray();
+
+        for (CareerCluster cluster : selectedCareerClusters) {
+
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id", cluster.getId());
+                jsonObject.put("name", cluster.getName());
+                jsonArray.put(jsonObject);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        JSONObject selectedClusters = new JSONObject();
+        try {
+            selectedClusters.put("selectedCareerClusters", jsonArray);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return selectedClusters;
+    }
+
+    /**
+     * Responsible for describing an item and its associated views within a RecyclerView
+     */
     private class CareerClustersViewHolder extends RecyclerView.ViewHolder {
 
+        LinearLayout clusterLayout;
         TextView clusterName;
         ImageView clusterIcon;
 
         public CareerClustersViewHolder(View itemView){
 
             super(itemView);
+            clusterLayout = itemView.findViewById(R.id.career_cluster_layout);
             clusterName = itemView.findViewById(R.id.career_cluster_name_textView);
             clusterIcon = itemView.findViewById(R.id.career_cluster_icon_imageView);
         }
     }
 
+    /**
+     * Binds views data to the RecyclerView
+     */
     private class CareerClustersAdapter extends RecyclerView.Adapter<CareerClustersViewHolder>{
 
         private List<CareerCluster> careerClusterList;
@@ -184,6 +247,37 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull CareerClustersViewHolder holder, int position) {
 
             CareerCluster careerCluster = careerClusterList.get(position);
+
+            if (selectedCareerClusters.contains(careerCluster)) {
+
+                ViewCompat.setBackgroundTintList(holder.clusterLayout,
+                        ContextCompat.getColorStateList(context, R.color.medium_blue));
+            } else {
+
+                ViewCompat.setBackgroundTintList(holder.clusterLayout,
+                        ContextCompat.getColorStateList(context, R.color.white));
+            }
+
+            holder.clusterLayout.setOnClickListener(v -> {
+
+                if (!selectedCareerClusters.contains(careerCluster)){
+
+                    if (selectedCareerClusters.size() >= 3){
+                        Toast.makeText(getApplicationContext(), "Career clusters limit reached", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        selectedCareerClusters.add(careerCluster);
+                        ViewCompat.setBackgroundTintList(holder.clusterLayout,
+                                ContextCompat.getColorStateList(context, R.color.medium_blue));
+                    }
+                }
+                else {
+
+                    selectedCareerClusters.remove(careerCluster);
+                    ViewCompat.setBackgroundTintList(holder.clusterLayout,
+                            ContextCompat.getColorStateList(context, R.color.white));
+                }
+            });
 
             holder.clusterIcon.setImageResource(careerCluster.getIconResource());
             holder.clusterIcon.setColorFilter(ContextCompat.getColor(context, R.color.cobalt_blue), PorterDuff.Mode.SRC_IN);
