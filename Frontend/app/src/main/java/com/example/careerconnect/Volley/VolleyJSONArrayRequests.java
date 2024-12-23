@@ -10,6 +10,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class VolleyJSONArrayRequests {
      * @param URL Given URL
      * @param callback VolleyCallback instance
      */
-    public void makeVolleyJSONArrayGETRequest(Context context, String URL, final VolleyCallback callback) {
+    public static void makeVolleyJSONArrayGETRequest(Context context, String URL, final VolleyJSONArrayCallback callback) {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -36,6 +37,7 @@ public class VolleyJSONArrayRequests {
                         Log.d("Volley JSONArray GET Response", String.valueOf(response));
 
                         // Pass success to the callback
+                        callback.onJSONArray(response);
                         callback.onResult(true);
                     }
                 },
@@ -52,10 +54,14 @@ public class VolleyJSONArrayRequests {
                             // Log the response body (if any)
                             String responseBody = new String(error.networkResponse.data);
                             Log.e("Volley JSONArray GET Error", "Response Body: " + responseBody);
-                        }
 
+                            callback.onResult(statusCode >= 400 && statusCode < 500);
+                        }
+                        else {
+                            callback.onResult(false);
+                        }
                         // Pass failure to the callback
-                        callback.onResult(false);
+                        callback.onJSONArray(null);
                     }
                 }
         );
@@ -272,5 +278,16 @@ public class VolleyJSONArrayRequests {
     public interface VolleyCallback {
 
         void onResult(boolean result);
+    }
+
+    /**
+     * JSONArray Callback to account for the asynchronous property
+     * of Volley requests
+     */
+    public interface VolleyJSONArrayCallback {
+
+        void onResult(boolean result);
+
+        void onJSONArray(JSONArray jsonArray);
     }
 }
