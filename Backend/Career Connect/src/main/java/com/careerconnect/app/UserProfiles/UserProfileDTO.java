@@ -11,9 +11,6 @@ public class UserProfileDTO {
     @NotNull(message = "Last name cannot be null")
     private String lastName;
 
-    @NotNull(message = "Password cannot be null")
-    private String password;
-
     @NotNull(message = "Email cannot be null")
     private String email;
 
@@ -42,14 +39,6 @@ public class UserProfileDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {

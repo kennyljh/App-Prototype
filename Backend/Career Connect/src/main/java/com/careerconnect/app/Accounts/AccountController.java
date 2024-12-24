@@ -88,11 +88,13 @@ public class AccountController {
         switch (accountType){
 
             case USER -> {
-                Account account = createUSERAccount(request.getUsername(), accountType, request.getUserProfileInfo());
+                Account account = createUSERAccount(request.getUsername(), accountType, accountInfo.getPassword(),
+                                                    request.getUserProfileInfo());
                 accountRepository.save(account);
             }
             case COMPANY -> {
-                Account account = createCOMPANYAccount(request.getUsername(), accountType, request.getCompanyProfileInfo());
+                Account account = createCOMPANYAccount(request.getUsername(), accountType, accountInfo.getPassword(),
+                                                        request.getCompanyProfileInfo());
                 accountRepository.save(account);
             }
         }
@@ -101,15 +103,15 @@ public class AccountController {
         return ResponseEntity.ok(status);
     }
 
-    private Account createUSERAccount(String newUsername, AccountType accountType, UserProfileDTO userProfileDTO) {
+    private Account createUSERAccount(String newUsername, AccountType accountType, String password,
+                                      UserProfileDTO userProfileDTO) {
 
         Username username = new Username(newUsername);
-        Account account = new Account(accountType, username);
+        Account account = new Account(accountType, username, password);
         UserProfile userProfile = new UserProfile(
                 userProfileDTO.getFirstName(),
                 userProfileDTO.getMiddleName(),
                 userProfileDTO.getLastName(),
-                userProfileDTO.getPassword(),
                 userProfileDTO.getEmail(),
                 userProfileDTO.getPhoneNumber()
         );
@@ -117,13 +119,13 @@ public class AccountController {
         return account;
     }
 
-    private Account createCOMPANYAccount(String newUsername, AccountType accountType, CompanyProfileDTO companyProfileDTO){
+    private Account createCOMPANYAccount(String newUsername, AccountType accountType, String password,
+                                         CompanyProfileDTO companyProfileDTO){
 
         Username username = new Username(newUsername);
-        Account account = new Account(accountType, username);
+        Account account = new Account(accountType, username, password);
         CompanyProfile companyProfile = new CompanyProfile(
                 companyProfileDTO.getBrandName(),
-                companyProfileDTO.getPassword(),
                 companyProfileDTO.getEmail(),
                 companyProfileDTO.getPhoneNumber()
         );

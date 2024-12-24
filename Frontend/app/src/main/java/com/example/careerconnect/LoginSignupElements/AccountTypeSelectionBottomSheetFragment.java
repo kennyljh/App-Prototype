@@ -61,7 +61,9 @@ public class AccountTypeSelectionBottomSheetFragment extends BottomSheetDialogFr
                         dismiss();
                     });
                     companySelectionButton.setOnClickListener(v -> {
-                        //todo
+
+                        Intent intent = new Intent(context, CompanySignupActivity.class);
+                        startActivity(intent);
                         dismiss();
                     });
             }

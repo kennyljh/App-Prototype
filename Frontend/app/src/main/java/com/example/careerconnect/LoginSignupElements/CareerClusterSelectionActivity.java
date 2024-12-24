@@ -177,7 +177,7 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
             return;
         }
 
-        VolleyJSONObjectRequests.makeVolleyJSONObjectPOSTRequest(selectedClustersToJSONObject(), getApplicationContext(),LibraryURL.getCareerClustersPOSTRequest() + "john123", new VolleyJSONObjectRequests.VolleyCallback() {
+        VolleyJSONObjectRequests.makeVolleyJSONObjectPOSTRequest(selectedClustersToJSONObject(), getApplicationContext(),LibraryURL.getCareerClustersPOSTRequest() + getIntent().getStringExtra("USERNAME"), new VolleyJSONObjectRequests.VolleyCallback() {
             @Override
             public void onResult(boolean result) {
 

@@ -24,6 +24,9 @@ public class Account {
     @JoinColumn(name = "username_id", nullable = false)
     private Username username;
 
+    @Column(nullable = false)
+    private String password;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
@@ -42,9 +45,10 @@ public class Account {
 
     public Account(){}
 
-    public Account(AccountType accountType, Username username){
+    public Account(AccountType accountType, Username username, String password){
         this.accountType = accountType;
         this.username = username;
+        this.password = password;
     }
 
     public Long getId() {
@@ -61,6 +65,14 @@ public class Account {
 
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Username getUsername() {

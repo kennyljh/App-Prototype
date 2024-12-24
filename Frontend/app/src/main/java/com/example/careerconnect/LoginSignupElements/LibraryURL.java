@@ -9,7 +9,7 @@ public class LibraryURL {
         return "http://10.0.2.2:8080/username/check/";
     }
 
-    public static String getAccountCreationPOSTRequest(){
+    public static String getUSERAccountCreationPOSTRequest(){
         return "http://10.0.2.2:8080/account/create";
     }
 

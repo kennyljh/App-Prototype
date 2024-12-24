@@ -19,19 +19,17 @@ public class UserProfile {
     private String firstName;
     private String middleName;
     private String lastName;
-    private String password;
     private String email;
     private String phoneNumber;
 
     public UserProfile(){}
 
     public UserProfile(String firstName, String middleName, String lastName,
-                       String password, String email, String phoneNumber){
+                       String email, String phoneNumber){
 
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
-        this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
@@ -74,14 +72,6 @@ public class UserProfile {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
