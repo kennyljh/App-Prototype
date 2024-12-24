@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Account Personalization"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        android:textSize="50sp"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:background="@color/cobalt_blue">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/edittext_border"
+        android:layout_margin="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp">
+
+            <RelativeLayout
+                android:id="@+id/picture_card_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/element_background"
+                android:padding="10dp"
+                android:layout_gravity="center_horizontal">
+
+                <ImageView
+                    android:id="@+id/profile_picture_imageView"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:background="@drawable/profile_picture_background"
+                    android:src="@drawable/default_profile_picture"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center"
+                    android:clipToOutline="true">
+                </ImageView>
+
+                <Button
+                    android:id="@+id/profile_card_info_btn"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/baseline_info_outline_24"
+                    android:layout_alignEnd="@+id/profile_picture_imageView">
+                </Button>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="7dp"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/element_background"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/element_background"
+                    android:backgroundTint="@color/cobalt_blue">
+
+                    <TextView
+                        android:id="@+id/firstName_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:text="First Name">
+                    </TextView>
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:id="@+id/lastName_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:text="Last Name">
+                    </TextView>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+
+                <TextView
+                    android:id="@+id/username_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:background="@drawable/element_background"
+                    android:backgroundTint="@color/cobalt_blue"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:text="Username">
+                </TextView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:background="@drawable/element_background"
+                    android:backgroundTint="@color/cobalt_blue"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:text="University">
+                </TextView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:background="@drawable/element_background"
+                    android:backgroundTint="@color/cobalt_blue"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:text="Major">
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:background="@drawable/element_background"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Personal Information"
+                android:textColor="@color/cobalt_blue"
+                android:textSize="20sp">
+            </TextView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/cobalt_blue"
+                android:layout_marginVertical="2dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nothing to see here...">
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:background="@drawable/element_background"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Qualifications"
+                android:textColor="@color/cobalt_blue"
+                android:textSize="20sp">
+            </TextView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/cobalt_blue"
+                android:layout_marginVertical="2dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nothing to see here...">
+            </TextView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="......"
+            android:textSize="30dp"
+            android:textColor="@color/cobalt_blue"
+            android:layout_gravity="center_horizontal">
+        </TextView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+    </View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/element_background"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/cobalt_blue">
+
+        <TextView
+            android:id="@+id/account_setup_info_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Your profile is empty at the moment...\nDo you want to set it up now?"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:padding="20dp">
+        </TextView>
+
+        <Button
+            android:id="@+id/account_setup_info_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:drawableTop="@drawable/baseline_info_outline_24"
+            android:drawableTint="@color/white"
+            android:background="@drawable/circle_button"
+            android:layout_alignEnd="@id/account_setup_info_textView">
+        </Button>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/accept_personalization_btn"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:text="Customize Profile Now"
+        android:textSize="17sp"
+        android:textAllCaps="false"
+        android:backgroundTint="#0056b4"
+        android:background="@drawable/rounded_button"
+        android:textColor="#ffffff">
+    </Button>
+
+    <Button
+        android:id="@+id/reject_personalization_btn"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Maybe next time..."
+        android:textSize="17sp"
+        android:textAllCaps="false"
+        android:backgroundTint="#0056b4"
+        android:background="@drawable/rounded_button"
+        android:textColor="#ffffff">
+    </Button>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:text="Tip: You can always setup your profile later under\nProfile > Settings"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="10dp">
+    </TextView>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

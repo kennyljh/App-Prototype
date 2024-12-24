@@ -21,6 +21,7 @@ import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.careerconnect.AccountPersonalizationElements.PersonalizeAccountDialogFragment;
 import com.example.careerconnect.Global.ButterToast;
 import com.example.careerconnect.R;
 import com.example.careerconnect.Volley.VolleyJSONArrayRequests;
@@ -67,6 +68,14 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         confirmButton.setOnClickListener(v -> {
 
             sendCareerClusters();
+
+            PersonalizeAccountDialogFragment dialogFragment = new PersonalizeAccountDialogFragment(getApplicationContext());
+
+            //todo
+            dialogFragment.setArguments(args);
+
+            dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
+            finish();
         });
     }
 
@@ -306,5 +315,30 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         public int getItemCount() {
             return careerClusterList.size();
         }
+    }
+
+    private Bundle getAccountInfoBundle(){
+
+        Bundle args = new Bundle();
+
+        VolleyStringRequests.makeVolleyStringGETRequest(getApplicationContext(), LibraryURL.getAccountTypeGETRequest() + getIntent().getStringExtra("USERNAME"), new VolleyStringRequests.VolleyStringCallback() {
+            @Override
+            public void onResult(boolean result) {
+
+                if (!result){
+                    ButterToast.show(getApplicationContext(),  "Failed to retrieve account type information", Toast.LENGTH_SHORT);
+                }
+            }
+
+            @Override
+            public void onString(String string) {
+
+                if (string != null) {
+                    
+                }
+            }
+        });
+
+        return args;
     }
 }
