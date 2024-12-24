@@ -7,9 +7,6 @@ public class CompanyProfileDTO {
     @NotNull(message = "Company/Brand name cannot be null")
     private String brandName;
 
-    @NotNull(message = "Password cannot be null")
-    private String password;
-
     @NotNull(message = "Email cannot be null")
     private String email;
 
@@ -22,14 +19,6 @@ public class CompanyProfileDTO {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {

@@ -46,6 +46,11 @@ public class UserSignupActivity extends AppCompatActivity {
          */
         checkUsernameButton.setOnClickListener(v -> {
 
+            if (usernameEdtTxt.getText().toString().isEmpty()){
+                Toast.makeText(getApplicationContext(), "Nothing to check", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             VolleyStringRequests.makeVolleyStringGETRequest(getApplicationContext(), LibraryURL.getUsernameCheckGETRequest() + usernameEdtTxt.getText().toString(), new VolleyStringRequests.VolleyStringCallback() {
                 @Override
                 public void onResult(boolean result) {
@@ -105,7 +110,7 @@ public class UserSignupActivity extends AppCompatActivity {
 
                         if (string != null){
 
-                            VolleyJSONObjectRequests.makeVolleyJSONObjectPOSTRequest(signupInfo, getApplicationContext(), LibraryURL.getAccountCreationPOSTRequest(), result -> {
+                            VolleyJSONObjectRequests.makeVolleyJSONObjectPOSTRequest(signupInfo, getApplicationContext(), LibraryURL.getUSERAccountCreationPOSTRequest(), result -> {
 
                                 if (result){
                                     Toast.makeText(getApplicationContext(), "Account successfully created", Toast.LENGTH_SHORT).show();
@@ -213,25 +218,25 @@ public class UserSignupActivity extends AppCompatActivity {
             userProfileInfo.put("firstName", firstName);
             userProfileInfo.put("middleName", middleName);
             userProfileInfo.put("lastName", lastName);
-            userProfileInfo.put("password", password);
             userProfileInfo.put("email", email);
             userProfileInfo.put("phoneNumber", phoneNumber);
         } catch (JSONException e){
             throw new RuntimeException(e);
         }
 
-        JSONObject accountTypeInfo = new JSONObject();
+        JSONObject accountInfo = new JSONObject();
         try {
-            accountTypeInfo.put("accountType", "USER");
+            accountInfo.put("accountType", "USER");
+            accountInfo.put("password", password);
         } catch (JSONException e){
             throw new RuntimeException(e);
         }
 
         JSONObject signupInfo = new JSONObject();
         try {
-            signupInfo.put("accountInfo", accountTypeInfo);
+            signupInfo.put("accountInfo", accountInfo);
             signupInfo.put("userProfileInfo", userProfileInfo);
-            signupInfo.put("username",username);
+            signupInfo.put("username", username);
         } catch (JSONException e){
             throw new RuntimeException(e);
         }

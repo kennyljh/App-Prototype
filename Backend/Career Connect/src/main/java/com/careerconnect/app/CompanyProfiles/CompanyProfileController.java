@@ -62,7 +62,6 @@ public class CompanyProfileController {
     private CompanyProfile updateCompanyProfile(CompanyProfileDTO request, CompanyProfile existingCompanyProfile) {
 
         existingCompanyProfile.setBrandName(request.getBrandName());
-        existingCompanyProfile.setPassword(request.getPassword());
         existingCompanyProfile.setPhoneNumber(request.getPhoneNumber());
         existingCompanyProfile.setEmail(request.getEmail());
         return existingCompanyProfile;

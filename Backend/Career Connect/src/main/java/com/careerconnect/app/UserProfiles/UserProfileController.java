@@ -65,7 +65,6 @@ public class UserProfileController {
         existingUserProfile.setFirstName(request.getFirstName());
         existingUserProfile.setMiddleName(request.getMiddleName());
         existingUserProfile.setLastName(request.getLastName());
-        existingUserProfile.setPassword(request.getPassword());
         existingUserProfile.setEmail(request.getEmail());
         existingUserProfile.setPhoneNumber(request.getPhoneNumber());
         return existingUserProfile;

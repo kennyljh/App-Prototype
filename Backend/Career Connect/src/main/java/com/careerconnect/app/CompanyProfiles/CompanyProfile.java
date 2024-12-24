@@ -17,17 +17,15 @@ public class CompanyProfile {
     private Account account;
 
     private String brandName;
-    private String password;
     private String email;
     private String phoneNumber;
 
     public CompanyProfile(){}
 
-    public CompanyProfile(String brandName, String password, String email,
+    public CompanyProfile(String brandName, String email,
                            String phoneNumber){
 
         this.brandName = brandName;
-        this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
@@ -54,14 +52,6 @@ public class CompanyProfile {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
