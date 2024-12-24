@@ -20,4 +20,8 @@ public class LibraryURL {
     public static String getCareerClustersPOSTRequest(){
         return "http://10.0.2.2:8080/careerCluster/post/";
     }
+
+    public static String getAccountTypeGETRequest(){
+        return "http://10.0.2.2:8080/account/get/accountType/";
+    }
 }

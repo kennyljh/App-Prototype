@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/company")
+@RequestMapping(value = "/company/profile")
 public class CompanyProfileController {
 
     @Autowired

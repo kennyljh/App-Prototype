@@ -40,6 +40,5 @@ public class LoginSignupSelectionActivity extends AppCompatActivity {
 
             bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
         });
-
     }
 }

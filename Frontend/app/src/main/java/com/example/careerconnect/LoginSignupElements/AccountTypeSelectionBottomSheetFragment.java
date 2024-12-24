@@ -53,6 +53,7 @@ public class AccountTypeSelectionBottomSheetFragment extends BottomSheetDialogFr
                         //todo
                         dismiss();
                     });
+                    break;
                 case "signup" :
                     userSelectionButton.setOnClickListener(v -> {
 
@@ -66,6 +67,7 @@ public class AccountTypeSelectionBottomSheetFragment extends BottomSheetDialogFr
                         startActivity(intent);
                         dismiss();
                     });
+                    break;
             }
         }
         return view;

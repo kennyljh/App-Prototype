@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/profile")
+@RequestMapping(value = "/user/profile")
 public class UserProfileController {
 
     @Autowired
