@@ -21,6 +21,7 @@ import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.careerconnect.Global.ButterToast;
 import com.example.careerconnect.R;
 import com.example.careerconnect.Volley.VolleyJSONArrayRequests;
 import com.example.careerconnect.Volley.VolleyJSONObjectRequests;
@@ -78,7 +79,7 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
             @Override
             public void onResult(boolean result) {
                 if (!result){
-                    Toast.makeText(getApplicationContext(), "Failed to retrieve career clusters", Toast.LENGTH_SHORT).show();
+                    ButterToast.show(getApplicationContext(), "Failed to retrieve career clusters", Toast.LENGTH_SHORT);
                 }
             }
 
@@ -173,7 +174,7 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
     private void sendCareerClusters(){
 
         if (selectedCareerClusters.isEmpty()){
-            Toast.makeText(getApplicationContext(), "Select at least one Career Cluster", Toast.LENGTH_SHORT).show();
+            ButterToast.show(getApplicationContext(), "Select at least one Career Cluster", Toast.LENGTH_SHORT);
             return;
         }
 
@@ -182,10 +183,10 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
             public void onResult(boolean result) {
 
                 if (!result){
-                    Toast.makeText(getApplicationContext(), "Failed to update selected career clusters", Toast.LENGTH_SHORT).show();
+                    ButterToast.show(getApplicationContext(), "Failed to update selected career clusters", Toast.LENGTH_SHORT);
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Career cluster selection confirmed", Toast.LENGTH_SHORT).show();
+                    ButterToast.show(getApplicationContext(), "Career cluster selection confirmed", Toast.LENGTH_SHORT);
                     //todo
                 }
             }
@@ -280,7 +281,7 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
                 if (!selectedCareerClusters.contains(careerCluster)){
 
                     if (selectedCareerClusters.size() >= 3){
-                        Toast.makeText(getApplicationContext(), "Career clusters limit reached", Toast.LENGTH_SHORT).show();
+                        ButterToast.show(getApplicationContext(), "Career clusters limit reached", Toast.LENGTH_SHORT);
                     }
                     else {
                         selectedCareerClusters.add(careerCluster);

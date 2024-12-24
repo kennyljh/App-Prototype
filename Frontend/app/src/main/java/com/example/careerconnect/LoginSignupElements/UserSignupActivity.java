@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.careerconnect.Global.ButterToast;
 import com.example.careerconnect.R;
 import com.example.careerconnect.Volley.VolleyJSONObjectRequests;
 import com.example.careerconnect.Volley.VolleyStringRequests;
@@ -47,7 +48,7 @@ public class UserSignupActivity extends AppCompatActivity {
         checkUsernameButton.setOnClickListener(v -> {
 
             if (usernameEdtTxt.getText().toString().isEmpty()){
-                Toast.makeText(getApplicationContext(), "Nothing to check", Toast.LENGTH_SHORT).show();
+                ButterToast.show(getApplicationContext(), "Nothing to check", Toast.LENGTH_SHORT);
                 return;
             }
 
@@ -56,7 +57,7 @@ public class UserSignupActivity extends AppCompatActivity {
                 public void onResult(boolean result) {
 
                     if (!result){
-                        Toast.makeText(getApplicationContext(), "Failed to check username availability", Toast.LENGTH_SHORT).show();
+                        ButterToast.show(getApplicationContext(), "Failed to check username availability", Toast.LENGTH_SHORT);
                     }
                 }
 
@@ -64,10 +65,10 @@ public class UserSignupActivity extends AppCompatActivity {
                 public void onString(String string) {
 
                     if (string != null) {
-                        Toast.makeText(getApplicationContext(), "This username is available", Toast.LENGTH_SHORT).show();
+                        ButterToast.show(getApplicationContext(), "This username is available", Toast.LENGTH_SHORT);
                     }
                     else {
-                        Toast.makeText(getApplicationContext(), "This username has been taken", Toast.LENGTH_SHORT).show();
+                        ButterToast.show(getApplicationContext(), "This username has been taken", Toast.LENGTH_SHORT);
                     }
                 }
             });
@@ -101,7 +102,7 @@ public class UserSignupActivity extends AppCompatActivity {
                     public void onResult(boolean result) {
 
                         if (!result){
-                            Toast.makeText(getApplicationContext(), "Failed to check username availability", Toast.LENGTH_SHORT).show();
+                            ButterToast.show(getApplicationContext(), "Failed to check username availability", Toast.LENGTH_SHORT);
                         }
                     }
 
@@ -113,19 +114,19 @@ public class UserSignupActivity extends AppCompatActivity {
                             VolleyJSONObjectRequests.makeVolleyJSONObjectPOSTRequest(signupInfo, getApplicationContext(), LibraryURL.getUSERAccountCreationPOSTRequest(), result -> {
 
                                 if (result){
-                                    Toast.makeText(getApplicationContext(), "Account successfully created", Toast.LENGTH_SHORT).show();
+                                    ButterToast.show(getApplicationContext(), "Account successfully created", Toast.LENGTH_SHORT);
                                     Intent intent = new Intent(UserSignupActivity.this, CareerClusterSelectionActivity.class);
                                     intent.putExtra("USERNAME", username);
                                     startActivity(intent);
                                     finish();
                                 }
                                 else {
-                                    Toast.makeText(getApplicationContext(), "Account creation unsuccessful. Try again", Toast.LENGTH_SHORT).show();
+                                    ButterToast.show(getApplicationContext(), "Account creation unsuccessful. Try again", Toast.LENGTH_SHORT);
                                 }
                             });
                         }
                         else {
-                            Toast.makeText(getApplicationContext(), "This username has been taken", Toast.LENGTH_SHORT).show();
+                            ButterToast.show(getApplicationContext(), "This username has been taken", Toast.LENGTH_SHORT);
                         }
                     }
                 });
@@ -162,7 +163,7 @@ public class UserSignupActivity extends AppCompatActivity {
             password.isEmpty() || confirmPassword.isEmpty() || email.isEmpty() ||
             phoneNumber.isEmpty()){
 
-            Toast.makeText(getApplicationContext(), "Please fill in all required details", Toast.LENGTH_SHORT).show();
+            ButterToast.show(getApplicationContext(), "Please fill in all required details", Toast.LENGTH_SHORT);
             return false;
         }
         return true;
@@ -188,13 +189,13 @@ public class UserSignupActivity extends AppCompatActivity {
             }
             else {
 
-                Toast.makeText(getApplicationContext(), "Password must contain at least one upper case and special character", Toast.LENGTH_LONG).show();
+                ButterToast.show(getApplicationContext(), "Password must contain at least one upper case and special character", Toast.LENGTH_LONG);
                 return false;
             }
         }
         else {
 
-            Toast.makeText(getApplicationContext(), "Password don't match", Toast.LENGTH_LONG).show();
+            ButterToast.show(getApplicationContext(), "Password don't match", Toast.LENGTH_LONG);
             return false;
         }
     }
