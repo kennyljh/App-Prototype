@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.careerconnect.Global.ButterToast;
 import com.example.careerconnect.R;
+import com.example.careerconnect.SingletonRepository.CompanyProfile;
+import com.example.careerconnect.SingletonRepository.DataRepository;
 import com.example.careerconnect.Volley.VolleyJSONObjectRequests;
 import com.example.careerconnect.Volley.VolleyStringRequests;
 
@@ -106,8 +108,9 @@ public class CompanySignupActivity extends AppCompatActivity {
 
                                 if (result){
                                     ButterToast.show(getApplicationContext(), "Account successfully created", Toast.LENGTH_SHORT);
+                                    saveCompanyInfoToRepository(brandName, username, email, phoneNumber);
                                     Intent intent = new Intent(CompanySignupActivity.this, CareerClusterSelectionActivity.class);
-                                    intent.putExtra("USERNAME", username);
+                                    intent.putExtra("ACCOUNT TYPE", "COMPANY");
                                     startActivity(intent);
                                     finish();
                                 }
@@ -223,5 +226,15 @@ public class CompanySignupActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
         return signupInfo;
+    }
+
+    private void saveCompanyInfoToRepository(String brandName, String username, String email,
+                                             String phoneNumber){
+
+        DataRepository repository = DataRepository.getInstance();
+        CompanyProfile companyProfile = new CompanyProfile(brandName, username, email,
+                                                            phoneNumber);
+        repository.setCompanyProfile(companyProfile);
+
     }
 }

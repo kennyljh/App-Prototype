@@ -121,7 +121,7 @@
 
             <EditText
                 android:id="@+id/username_edittext"
-                android:layout_width="wrap_content"
+                android:layout_width="122dp"
                 android:layout_height="40dp"
                 android:background="@drawable/edittext_border"
                 android:hint="This is Unique"

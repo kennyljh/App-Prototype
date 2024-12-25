@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <TextView
         android:layout_width="match_parent"
@@ -62,91 +63,136 @@
                 android:layout_width="7dp"
                 android:layout_height="match_parent"/>
 
-            <LinearLayout
+            <FrameLayout
+                android:id="@+id/information_card_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/element_background"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:gravity="center">
+                android:layout_height="match_parent">
+
+                <ScrollView
+                    android:id="@+id/user_info_card_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:background="@drawable/element_background"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:orientation="horizontal"
+                            android:background="@drawable/element_background"
+                            android:backgroundTint="@color/cobalt_blue">
+
+                            <TextView
+                                android:id="@+id/firstLastName_textView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:text="First Name Last Name">
+                            </TextView>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"/>
+
+                        <TextView
+                            android:id="@+id/user_username_textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:background="@drawable/element_background"
+                            android:backgroundTint="@color/cobalt_blue"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:text="Username">
+                        </TextView>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:background="@drawable/element_background"
+                            android:backgroundTint="@color/cobalt_blue"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:text="University">
+                        </TextView>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:background="@drawable/element_background"
+                            android:backgroundTint="@color/cobalt_blue"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:text="Major">
+                        </TextView>
+                    </LinearLayout>
+                </ScrollView>
 
                 <LinearLayout
+                    android:id="@+id/company_info_card_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:orientation="horizontal"
+                    android:layout_height="match_parent"
                     android:background="@drawable/element_background"
-                    android:backgroundTint="@color/cobalt_blue">
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone">
 
-                    <TextView
-                        android:id="@+id/firstName_textView"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="15sp"
-                        android:text="First Name">
-                    </TextView>
+                        android:padding="5dp"
+                        android:orientation="horizontal"
+                        android:background="@drawable/element_background"
+                        android:backgroundTint="@color/cobalt_blue">
+
+                        <TextView
+                            android:id="@+id/brandName_textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:text="Brand Name">
+                        </TextView>
+                    </LinearLayout>
 
                     <View
-                        android:layout_width="5dp"
-                        android:layout_height="match_parent"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"/>
 
                     <TextView
-                        android:id="@+id/lastName_textView"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/company_username_textView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:background="@drawable/element_background"
+                        android:backgroundTint="@color/cobalt_blue"
                         android:textColor="@color/white"
                         android:textSize="15sp"
-                        android:text="Last Name">
+                        android:text="Username">
                     </TextView>
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"/>
-
-                <TextView
-                    android:id="@+id/username_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:background="@drawable/element_background"
-                    android:backgroundTint="@color/cobalt_blue"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:text="Username">
-                </TextView>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:background="@drawable/element_background"
-                    android:backgroundTint="@color/cobalt_blue"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:text="University">
-                </TextView>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:background="@drawable/element_background"
-                    android:backgroundTint="@color/cobalt_blue"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:text="Major">
-                </TextView>
-            </LinearLayout>
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -158,6 +204,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/information_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Personal Information"
@@ -191,6 +238,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/qualifications_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Qualifications"
