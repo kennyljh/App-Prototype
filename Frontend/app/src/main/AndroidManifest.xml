@@ -28,6 +28,9 @@
             android:name=".LoginSignupElements.CompanySignupActivity"
             android:exported="false"/>
         <activity
+            android:name=".AccountPersonalizationElements.AccountPersonalizationActivity"
+            android:exported="false"/>
+        <activity
             android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>

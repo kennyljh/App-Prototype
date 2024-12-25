@@ -24,4 +24,12 @@ public class LibraryURL {
     public static String getAccountTypeGETRequest(){
         return "http://10.0.2.2:8080/account/get/accountType/";
     }
+
+    public static String getUSERProfileGETRequest(){
+        return "http://10.0.2.2:8080/user/profile/get/";
+    }
+
+    public static String getCOMPANYProfileGETRequest(){
+        return "http://10.0.2.2:8080/company/profile/get/";
+    }
 }

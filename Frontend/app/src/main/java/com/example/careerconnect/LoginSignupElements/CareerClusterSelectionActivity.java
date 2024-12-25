@@ -1,13 +1,12 @@
 package com.example.careerconnect.LoginSignupElements;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,9 +20,10 @@ import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.careerconnect.AccountPersonalizationElements.PersonalizeAccountDialogFragment;
+import com.example.careerconnect.AccountPersonalizationElements.AccountPersonalizationActivity;
 import com.example.careerconnect.Global.ButterToast;
 import com.example.careerconnect.R;
+import com.example.careerconnect.SingletonRepository.DataRepository;
 import com.example.careerconnect.Volley.VolleyJSONArrayRequests;
 import com.example.careerconnect.Volley.VolleyJSONObjectRequests;
 import com.example.careerconnect.Volley.VolleyStringRequests;
@@ -43,12 +43,24 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
     private final List<CareerCluster> careerClusterList = new ArrayList<>();
     private List<CareerCluster> selectedCareerClusters = new ArrayList<>();
     private CareerClustersAdapter adapter;
+    private String USERNAME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_career_cluster_selection);
+
+        // retrieve data from singleton repository
+        DataRepository repository = DataRepository.getInstance();
+        switch (getIntent().getStringExtra("ACCOUNT TYPE")){
+            case "USER":
+                USERNAME = repository.getUserProfile().getUsername();
+                break;
+            case "COMPANY":
+                USERNAME = repository.getCompanyProfile().getUsername();
+                break;
+        }
 
         Button infoButton = findViewById(R.id.career_cluster_info_btn);
         Button confirmButton = findViewById(R.id.confirm_button);
@@ -68,14 +80,6 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         confirmButton.setOnClickListener(v -> {
 
             sendCareerClusters();
-
-            PersonalizeAccountDialogFragment dialogFragment = new PersonalizeAccountDialogFragment(getApplicationContext());
-
-            //todo
-            dialogFragment.setArguments(args);
-
-            dialogFragment.show(getSupportFragmentManager(), dialogFragment.getTag());
-            finish();
         });
     }
 
@@ -187,7 +191,7 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
             return;
         }
 
-        VolleyJSONObjectRequests.makeVolleyJSONObjectPOSTRequest(selectedClustersToJSONObject(), getApplicationContext(),LibraryURL.getCareerClustersPOSTRequest() + getIntent().getStringExtra("USERNAME"), new VolleyJSONObjectRequests.VolleyCallback() {
+        VolleyJSONObjectRequests.makeVolleyJSONObjectPOSTRequest(selectedClustersToJSONObject(), getApplicationContext(),LibraryURL.getCareerClustersPOSTRequest() + USERNAME, new VolleyJSONObjectRequests.VolleyCallback() {
             @Override
             public void onResult(boolean result) {
 
@@ -196,7 +200,10 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
                 }
                 else {
                     ButterToast.show(getApplicationContext(), "Career cluster selection confirmed", Toast.LENGTH_SHORT);
-                    //todo
+                    Intent intent = new Intent(CareerClusterSelectionActivity.this, AccountPersonalizationActivity.class);
+                    intent.putExtra("ACCOUNT TYPE", getIntent().getStringExtra("ACCOUNT TYPE"));
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -315,30 +322,5 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         public int getItemCount() {
             return careerClusterList.size();
         }
-    }
-
-    private Bundle getAccountInfoBundle(){
-
-        Bundle args = new Bundle();
-
-        VolleyStringRequests.makeVolleyStringGETRequest(getApplicationContext(), LibraryURL.getAccountTypeGETRequest() + getIntent().getStringExtra("USERNAME"), new VolleyStringRequests.VolleyStringCallback() {
-            @Override
-            public void onResult(boolean result) {
-
-                if (!result){
-                    ButterToast.show(getApplicationContext(),  "Failed to retrieve account type information", Toast.LENGTH_SHORT);
-                }
-            }
-
-            @Override
-            public void onString(String string) {
-
-                if (string != null) {
-                    
-                }
-            }
-        });
-
-        return args;
     }
 }
