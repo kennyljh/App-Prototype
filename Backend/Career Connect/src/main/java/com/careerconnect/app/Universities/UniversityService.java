@@ -22,6 +22,10 @@ public class UniversityService {
     @Transactional
     public void loadUniversitiesFromCsv(){
 
+        if (!universityRepository.findAll().isEmpty()){
+            return;
+        }
+
         try {
             ClassPathResource resource = new ClassPathResource("world_universities_and_domains.csv");
             CSVReader csvReader = new CSVReader(new FileReader(resource.getFile()));
@@ -33,6 +37,7 @@ public class UniversityService {
 
                 String[] row = rows.get(i);
                 University university = new University();
+                university.setId(Long.parseLong(String.valueOf(i)));
                 university.setName(row[0]);
                 university.setDomain(row[1]);
                 university.setWebpage(row[2]);

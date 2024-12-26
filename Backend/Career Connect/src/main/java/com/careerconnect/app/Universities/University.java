@@ -7,9 +7,7 @@ import jakarta.persistence.*;
 public class University {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String domain;
     private String webpage;
