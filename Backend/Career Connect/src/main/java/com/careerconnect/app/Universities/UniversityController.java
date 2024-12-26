@@ -22,8 +22,8 @@ public class UniversityController {
     @GetMapping("/get")
     ResponseEntity<?> getAllUniversities(){
 
-        if ((universityRepository.findAll().isEmpty())){
-            String errorMsg = "Not universities found in repository";
+        if (universityRepository.findAll().isEmpty()){
+            String errorMsg = "No universities found in repository";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMsg);
         }
         return ResponseEntity.ok(universityRepository.findAll(Sort.by(Sort.Order.asc("name"))));
@@ -32,8 +32,8 @@ public class UniversityController {
     @GetMapping("/get/{prefix}")
     ResponseEntity<?> getUniversityByPrefix(@PathVariable String prefix){
 
-        if ((universityRepository.findAll().isEmpty())){
-            String errorMsg = "Not universities found in repository";
+        if (universityRepository.findAll().isEmpty()){
+            String errorMsg = "No universities found in repository";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMsg);
         }
         Sort sort = Sort.by(Sort.Order.asc("name"));
