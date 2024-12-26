@@ -31,7 +31,7 @@
             android:name=".AccountPersonalizationElements.AccountPersonalizationActivity"
             android:exported="false"/>
         <activity
-            android:name=".SplashScreen"
+            android:name=".AccountPersonalizationElements.UserBackgroundActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

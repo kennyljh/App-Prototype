@@ -26,7 +26,7 @@ import jakarta.validation.constraints.NotNull;
  */
 public class CreateAccountDTO {
 
-    @NotNull(message = "Account type information cannot be null")
+    @Valid
     private AccountDTO accountInfo;
 
     @NotNull(message = "Desired username cannot be null")
