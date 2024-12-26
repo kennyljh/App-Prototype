@@ -16,7 +16,6 @@
             android:text="Select 3\nCareer Clusters"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
-            android:layout_marginTop="20dp"
             android:textSize="50sp"
             android:textColor="@color/white"
             android:padding="10dp"
@@ -28,7 +27,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
+            android:layout_margin="5dp"
             android:drawableTop="@drawable/baseline_question_mark_24"
             android:background="@drawable/circle_button"
             android:drawableTint="@color/white">
