@@ -23,10 +23,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.careerconnect.AccountPersonalizationElements.AccountPersonalizationActivity;
 import com.example.careerconnect.Global.ButterToast;
 import com.example.careerconnect.R;
-import com.example.careerconnect.SingletonRepository.DataRepository;
+import com.example.careerconnect.SingletonRepository.IdentifyingDataRepository;
 import com.example.careerconnect.Volley.VolleyJSONArrayRequests;
 import com.example.careerconnect.Volley.VolleyJSONObjectRequests;
-import com.example.careerconnect.Volley.VolleyStringRequests;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,8 +51,8 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_career_cluster_selection);
 
         // retrieve data from singleton repository
-        DataRepository repository = DataRepository.getInstance();
-        switch (getIntent().getStringExtra("ACCOUNT TYPE")){
+        IdentifyingDataRepository repository = IdentifyingDataRepository.getInstance();
+        switch (IdentifyingDataRepository.getInstance().getAccountType()){
             case "USER":
                 USERNAME = repository.getUserProfile().getUsername();
                 break;
@@ -265,6 +264,7 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
         private Context context;
 
         private CareerClustersAdapter(List<CareerCluster> careerClusterList, Context context){
+
             this.careerClusterList = careerClusterList;
             this.context = context;
         }
@@ -286,7 +286,8 @@ public class CareerClusterSelectionActivity extends AppCompatActivity {
 
                 ViewCompat.setBackgroundTintList(holder.clusterLayout,
                         ContextCompat.getColorStateList(context, R.color.medium_blue));
-            } else {
+            }
+            else {
 
                 ViewCompat.setBackgroundTintList(holder.clusterLayout,
                         ContextCompat.getColorStateList(context, R.color.white));

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/date_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/element_background"
+        android:layout_margin="3dp">
+
+        <TextView
+            android:id="@+id/date_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="XX"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:padding="5dp"
+            android:gravity="center">
+        </TextView>
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

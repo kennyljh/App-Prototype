@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.careerconnect.R;
+import com.example.careerconnect.SingletonRepository.IdentifyingDataRepository;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 /**
@@ -42,32 +43,21 @@ public class AccountTypeSelectionBottomSheetFragment extends BottomSheetDialogFr
             Button userSelectionButton = view.findViewById(R.id.user_selection_btn);
             Button companySelectionButton = view.findViewById(R.id.company_selection_button);
 
-            switch (action){
+            if (action.equals("signup")) {
+                userSelectionButton.setOnClickListener(v -> {
 
-                case "login" :
-                    userSelectionButton.setOnClickListener(v -> {
-                        //todo
-                        dismiss();
-                    });
-                    companySelectionButton.setOnClickListener(v -> {
-                        //todo
-                        dismiss();
-                    });
-                    break;
-                case "signup" :
-                    userSelectionButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(context, UserSignupActivity.class);
+                    startActivity(intent);
+                    IdentifyingDataRepository.getInstance().setAccountType("USER");
+                    dismiss();
+                });
+                companySelectionButton.setOnClickListener(v -> {
 
-                        Intent intent = new Intent(context, UserSignupActivity.class);
-                        startActivity(intent);
-                        dismiss();
-                    });
-                    companySelectionButton.setOnClickListener(v -> {
-
-                        Intent intent = new Intent(context, CompanySignupActivity.class);
-                        startActivity(intent);
-                        dismiss();
-                    });
-                    break;
+                    Intent intent = new Intent(context, CompanySignupActivity.class);
+                    startActivity(intent);
+                    IdentifyingDataRepository.getInstance().setAccountType("COMPANY");
+                    dismiss();
+                });
             }
         }
         return view;

@@ -1,6 +1,5 @@
 package com.example.careerconnect.AccountPersonalizationElements;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +14,7 @@ import androidx.core.view.ViewCompat;
 
 import com.example.careerconnect.R;
 import com.example.careerconnect.SingletonRepository.CompanyProfile;
-import com.example.careerconnect.SingletonRepository.DataRepository;
+import com.example.careerconnect.SingletonRepository.IdentifyingDataRepository;
 import com.example.careerconnect.SingletonRepository.UserProfile;
 
 public class AccountPersonalizationActivity extends AppCompatActivity {
@@ -37,10 +36,11 @@ public class AccountPersonalizationActivity extends AppCompatActivity {
 
         acceptButton.setOnClickListener(v -> {
 
-            //todo use the USERNAME
+            //todo use the account type
         });
 
         rejectButton.setOnClickListener(v -> {
+            //todo
         });
 
         frameColorInfoButton.setOnClickListener(v -> {
@@ -69,7 +69,7 @@ public class AccountPersonalizationActivity extends AppCompatActivity {
         TextView companyUsernameTxtView = findViewById(R.id.company_username_textView);
 
         // retrieve data from singleton repository
-        DataRepository repository = DataRepository.getInstance();
+        IdentifyingDataRepository repository = IdentifyingDataRepository.getInstance();
         switch (getIntent().getStringExtra("ACCOUNT TYPE")){
             case "USER":
                 USERNAME = repository.getUserProfile().getUsername();

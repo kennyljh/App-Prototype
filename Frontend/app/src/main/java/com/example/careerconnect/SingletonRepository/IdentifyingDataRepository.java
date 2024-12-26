@@ -3,19 +3,20 @@ package com.example.careerconnect.SingletonRepository;
 /**
  * Singleton repository for storing account related data
  */
-public class DataRepository {
+public class IdentifyingDataRepository {
 
-    private static DataRepository dataRepository;
+    private static IdentifyingDataRepository identifyingDataRepository;
 
     private CompanyProfile companyProfile;
     private UserProfile userProfile;
+    private String accountType;
 
-    public static DataRepository getInstance(){
+    public static IdentifyingDataRepository getInstance(){
 
-        if (dataRepository == null){
-            dataRepository = new DataRepository();
+        if (identifyingDataRepository == null){
+            identifyingDataRepository = new IdentifyingDataRepository();
         }
-        return dataRepository;
+        return identifyingDataRepository;
     }
 
     public CompanyProfile getCompanyProfile() {
@@ -32,5 +33,13 @@ public class DataRepository {
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
     }
 }

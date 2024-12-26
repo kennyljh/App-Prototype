@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.careerconnect.Global.ButterToast;
 import com.example.careerconnect.R;
-import com.example.careerconnect.SingletonRepository.DataRepository;
+import com.example.careerconnect.SingletonRepository.IdentifyingDataRepository;
 import com.example.careerconnect.SingletonRepository.UserProfile;
 import com.example.careerconnect.Volley.VolleyJSONObjectRequests;
 import com.example.careerconnect.Volley.VolleyStringRequests;
@@ -54,12 +54,16 @@ public class UserSignupActivity extends AppCompatActivity {
                 return;
             }
 
+            final Boolean[] checkUsername = {false};
             VolleyStringRequests.makeVolleyStringGETRequest(getApplicationContext(), LibraryURL.getUsernameCheckGETRequest() + usernameEdtTxt.getText().toString(), new VolleyStringRequests.VolleyStringCallback() {
                 @Override
                 public void onResult(boolean result) {
 
                     if (!result){
                         ButterToast.show(getApplicationContext(), "Failed to check username availability", Toast.LENGTH_SHORT);
+                    }
+                    else {
+                        checkUsername[0] = true;
                     }
                 }
 
@@ -69,7 +73,7 @@ public class UserSignupActivity extends AppCompatActivity {
                     if (string != null) {
                         ButterToast.show(getApplicationContext(), "This username is available", Toast.LENGTH_SHORT);
                     }
-                    else {
+                    else if (checkUsername[0]){
                         ButterToast.show(getApplicationContext(), "This username has been taken", Toast.LENGTH_SHORT);
                     }
                 }
@@ -99,12 +103,16 @@ public class UserSignupActivity extends AppCompatActivity {
                                                                 username, password, email,
                                                                 phoneNumber);
 
+                final Boolean[] checkUsername = {false};
                 VolleyStringRequests.makeVolleyStringGETRequest(getApplicationContext(), LibraryURL.getUsernameCheckGETRequest() + usernameEdtTxt.getText().toString(), new VolleyStringRequests.VolleyStringCallback() {
                     @Override
                     public void onResult(boolean result) {
 
                         if (!result){
                             ButterToast.show(getApplicationContext(), "Failed to check username availability", Toast.LENGTH_SHORT);
+                        }
+                        else {
+                            checkUsername[0] = true;
                         }
                     }
 
@@ -120,7 +128,6 @@ public class UserSignupActivity extends AppCompatActivity {
                                     saveUserInfoToRepository(firstName, middleName, lastName,
                                                                 username, email, phoneNumber);
                                     Intent intent = new Intent(UserSignupActivity.this, CareerClusterSelectionActivity.class);
-                                    intent.putExtra("ACCOUNT TYPE", "USER");
                                     startActivity(intent);
                                     finish();
                                 }
@@ -129,7 +136,7 @@ public class UserSignupActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                        else {
+                        else if (checkUsername[0]){
                             ButterToast.show(getApplicationContext(), "This username has been taken", Toast.LENGTH_SHORT);
                         }
                     }
@@ -231,7 +238,7 @@ public class UserSignupActivity extends AppCompatActivity {
 
         JSONObject accountInfo = new JSONObject();
         try {
-            accountInfo.put("accountType", "USER");
+            accountInfo.put("accountType", IdentifyingDataRepository.getInstance().getAccountType());
             accountInfo.put("password", password);
         } catch (JSONException e){
             throw new RuntimeException(e);
@@ -251,7 +258,7 @@ public class UserSignupActivity extends AppCompatActivity {
     private void saveUserInfoToRepository(String firstName, String middleName, String lastName,
                                           String username, String email, String phoneNumber){
 
-        DataRepository repository = DataRepository.getInstance();
+        IdentifyingDataRepository repository = IdentifyingDataRepository.getInstance();
         UserProfile userProfile = new UserProfile(firstName, middleName, lastName,
                                                     username, email, phoneNumber);
         repository.setUserProfile(userProfile);

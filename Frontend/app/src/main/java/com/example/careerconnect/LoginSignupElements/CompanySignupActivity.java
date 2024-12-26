@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.careerconnect.Global.ButterToast;
 import com.example.careerconnect.R;
 import com.example.careerconnect.SingletonRepository.CompanyProfile;
-import com.example.careerconnect.SingletonRepository.DataRepository;
+import com.example.careerconnect.SingletonRepository.IdentifyingDataRepository;
 import com.example.careerconnect.Volley.VolleyJSONObjectRequests;
 import com.example.careerconnect.Volley.VolleyStringRequests;
 
@@ -49,12 +49,16 @@ public class CompanySignupActivity extends AppCompatActivity {
                 return;
             }
 
+            final Boolean[] checkUsername = {false};
             VolleyStringRequests.makeVolleyStringGETRequest(getApplicationContext(), LibraryURL.getUsernameCheckGETRequest() + usernameEdtTxt.getText().toString(), new VolleyStringRequests.VolleyStringCallback() {
                 @Override
                 public void onResult(boolean result) {
 
                     if (!result){
                         ButterToast.show(getApplicationContext(), "Failed to check username availability", Toast.LENGTH_SHORT);
+                    }
+                    else {
+                        checkUsername[0] = true;
                     }
                 }
 
@@ -64,7 +68,7 @@ public class CompanySignupActivity extends AppCompatActivity {
                     if (string != null) {
                         ButterToast.show(getApplicationContext(), "This username is available", Toast.LENGTH_SHORT);
                     }
-                    else {
+                    else if (checkUsername[0]){
                         ButterToast.show(getApplicationContext(), "This username has been taken", Toast.LENGTH_SHORT);
                     }
                 }
@@ -90,12 +94,16 @@ public class CompanySignupActivity extends AppCompatActivity {
                 JSONObject signupInfo = accountInfoToJSONObject(brandName, username, password,
                                                                 email, phoneNumber);
 
+                final Boolean[] checkUsername = {false};
                 VolleyStringRequests.makeVolleyStringGETRequest(getApplicationContext(), LibraryURL.getUsernameCheckGETRequest() + usernameEdtTxt.getText().toString(), new VolleyStringRequests.VolleyStringCallback() {
                     @Override
                     public void onResult(boolean result) {
 
                         if (!result){
                             ButterToast.show(getApplicationContext(), "Failed to check username availability", Toast.LENGTH_SHORT);
+                        }
+                        else {
+                            checkUsername[0] = true;
                         }
                     }
 
@@ -119,7 +127,7 @@ public class CompanySignupActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                        else {
+                        else if (checkUsername[0]){
                             ButterToast.show(getApplicationContext(), "This username has been taken", Toast.LENGTH_SHORT);
                         }
                     }
@@ -211,7 +219,7 @@ public class CompanySignupActivity extends AppCompatActivity {
 
         JSONObject accountInfo = new JSONObject();
         try {
-            accountInfo.put("accountType", "COMPANY");
+            accountInfo.put("accountType", IdentifyingDataRepository.getInstance().getAccountType());
             accountInfo.put("password", password);
         } catch (JSONException e){
             throw new RuntimeException(e);
@@ -231,7 +239,7 @@ public class CompanySignupActivity extends AppCompatActivity {
     private void saveCompanyInfoToRepository(String brandName, String username, String email,
                                              String phoneNumber){
 
-        DataRepository repository = DataRepository.getInstance();
+        IdentifyingDataRepository repository = IdentifyingDataRepository.getInstance();
         CompanyProfile companyProfile = new CompanyProfile(brandName, username, email,
                                                             phoneNumber);
         repository.setCompanyProfile(companyProfile);
