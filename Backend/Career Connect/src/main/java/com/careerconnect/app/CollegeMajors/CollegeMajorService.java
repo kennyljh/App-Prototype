@@ -21,6 +21,10 @@ public class CollegeMajorService {
     @Transactional
     public void loadCollegeMajorsFromCsv(){
 
+        if (!collegeMajorRepository.findAll().isEmpty()){
+            return;
+        }
+
         try {
             ClassPathResource resource = new ClassPathResource("majorsList.csv");
             CSVReader csvReader = new CSVReader(new FileReader(resource.getFile()));
