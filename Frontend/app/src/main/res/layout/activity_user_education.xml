@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Background"
+        android:text="Education"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
         android:textSize="50sp"
@@ -16,123 +16,6 @@
         android:padding="10dp"
         android:background="@color/cobalt_blue">
     </TextView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/element_background"
-        android:layout_marginHorizontal="30dp"
-        android:padding="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Birth Date: "
-                android:textSize="20sp"
-                android:textColor="#000000">
-            </TextView>
-
-            <TextView
-                android:id="@+id/birthDate_textView"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="MM/DD/YYYY"
-                android:gravity="center"
-                android:textSize="17sp"
-                android:background="@drawable/edittext_border"
-                android:padding="5dp"
-                android:theme="@style/EditTextBoxStyle">
-            </TextView>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="6dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/months_recyclerView"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_weight="1"
-                android:padding="5dp">
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/cobalt_blue"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/days_recyclerView"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_weight="1"
-                android:padding="5dp">
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/cobalt_blue"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/years_recyclerView"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_weight="1"
-                android:padding="5dp">
-            </androidx.recyclerview.widget.RecyclerView>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/confirm_date_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Confirm Date"
-            android:textAllCaps="false">
-        </Button>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gender:      "
-                android:textSize="20sp"
-                android:textColor="#000000">
-            </TextView>
-
-            <Spinner
-                android:id="@+id/gender_spinner"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_border">
-            </Spinner>
-        </LinearLayout>
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -156,7 +39,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Country: "
+                android:text="University: "
                 android:layout_gravity="center"
                 android:textSize="20sp"
                 android:textColor="#000000">
@@ -167,7 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:hint="Type or Find Countries"
+                android:hint="Type or Find Universities"
                 android:background="@drawable/edittext_border"
                 android:theme="@style/EditTextBoxStyle">
             </EditText>
@@ -189,7 +72,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:hint="Search Country"
+                android:hint="Search Universities"
                 android:background="@drawable/edittext_border"
                 android:theme="@style/EditTextBoxStyle">
             </EditText>
@@ -220,6 +103,91 @@
     </LinearLayout>
 
     <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"
+        android:background="@drawable/element_background"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Major: "
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textColor="#000000">
+            </TextView>
+
+            <EditText
+                android:id="@+id/selected_major_edittext"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:hint="Type or Find Majors"
+                android:background="@drawable/edittext_border"
+                android:theme="@style/EditTextBoxStyle">
+            </EditText>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/search_major_edittext"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:hint="Search Universities"
+                android:background="@drawable/edittext_border"
+                android:theme="@style/EditTextBoxStyle">
+            </EditText>
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:id="@+id/find_major_button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Search"
+                android:textAllCaps="false"
+                android:background="@drawable/rounded_button">
+            </Button>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/major_list_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+    <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1" />
@@ -227,7 +195,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Step 1 of 3"
+        android:text="Step 2 of 3"
         android:textColor="@color/cobalt_blue"
         android:textSize="20sp"
         android:layout_gravity="center_horizontal"
