@@ -51,6 +51,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:text="MM/DD/YYYY"
+                android:textColor="@color/black"
                 android:gravity="center"
                 android:textSize="17sp"
                 android:background="@drawable/edittext_border"
@@ -103,13 +104,23 @@
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"/>
+
         <Button
             android:id="@+id/confirm_date_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
+            android:textAlignment="center"
             android:text="Confirm Date"
-            android:textAllCaps="false">
+            android:textAllCaps="false"
+            android:background="@drawable/rounded_button">
         </Button>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,7 +131,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gender:      "
+                android:text="Gender: "
                 android:textSize="20sp"
                 android:textColor="#000000">
             </TextView>
@@ -163,15 +174,18 @@
                 android:textColor="#000000">
             </TextView>
 
-            <EditText
-                android:id="@+id/selected_university_edittext"
+            <TextView
+                android:id="@+id/selected_country_textView"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:hint="Type or Find Countries"
+                android:gravity="center"
+                android:textSize="17sp"
+                android:hint="No countries selected"
+                android:textColor="@color/black"
                 android:background="@drawable/edittext_border"
                 android:theme="@style/EditTextBoxStyle">
-            </EditText>
+            </TextView>
         </LinearLayout>
 
         <View
@@ -185,12 +199,13 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/search_university_edittext"
+                android:id="@+id/search_country_edittext"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:hint="Search Country"
+                android:hint="Search country here"
+                android:textColor="@color/black"
                 android:background="@drawable/edittext_border"
                 android:theme="@style/EditTextBoxStyle">
             </EditText>
@@ -200,7 +215,7 @@
                 android:layout_height="match_parent"/>
 
             <Button
-                android:id="@+id/find_university_button"
+                android:id="@+id/find_country_button"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="Search"
@@ -213,11 +228,18 @@
             android:layout_width="match_parent"
             android:layout_height="6dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/university_list_recyclerView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            android:background="@drawable/linearlayout_border">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/country_list_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="5dp">
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
     </LinearLayout>
 
     <View
@@ -240,7 +262,6 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="30dp"
         android:text="Next Step"
         android:textSize="20sp"
         android:textAllCaps="false"
@@ -248,4 +269,8 @@
         android:background="@drawable/rounded_button"
         android:textColor="#ffffff">
     </Button>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
 </androidx.appcompat.widget.LinearLayoutCompat>
