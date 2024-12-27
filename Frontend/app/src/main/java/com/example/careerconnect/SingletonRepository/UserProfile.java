@@ -3,6 +3,7 @@ package com.example.careerconnect.SingletonRepository;
 public class UserProfile {
 
     private String firstName, middleName, lastName, username, email, phoneNumber;
+    private String birthDate, gender, country;
 
     public UserProfile(){}
 
@@ -63,5 +64,29 @@ public class UserProfile {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
