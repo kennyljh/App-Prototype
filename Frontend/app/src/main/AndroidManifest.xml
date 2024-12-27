@@ -32,6 +32,9 @@
             android:exported="false"/>
         <activity
             android:name=".AccountPersonalizationElements.UserBackgroundActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".AccountPersonalizationElements.UserEducationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
