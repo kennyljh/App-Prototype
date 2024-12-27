@@ -56,7 +56,6 @@ public class UserBackgroundActivity extends AppCompatActivity {
     private CountryAdapter countryAdapter;
     private String selectedCountry = "";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
@@ -132,7 +131,8 @@ public class UserBackgroundActivity extends AppCompatActivity {
 
             String selectedBirthDate = birthDateTxtView.getText().toString();
             String selectedGender = genderSpinner.getSelectedItem().toString();
-            String selectedCountry = searchCountryEdtTxt.getText().toString();
+            TextView selectedCountryEdtTxt = findViewById(R.id.selected_country_textView);
+            String selectedCountry = selectedCountryEdtTxt.getText().toString();
 
             if (selectedBirthDate.isEmpty()){
                 ButterToast.show(this, "Select birth date", Toast.LENGTH_SHORT);
@@ -267,6 +267,7 @@ public class UserBackgroundActivity extends AppCompatActivity {
                             ContextCompat.getColorStateList(context,  R.color.medium_blue));
                 }
                 else {
+
                     selectedDay = day;
                     lastSelectedPosition = position;
                     ViewCompat.setBackgroundTintList(holder.plainTextLayout,
@@ -329,6 +330,7 @@ public class UserBackgroundActivity extends AppCompatActivity {
                             ContextCompat.getColorStateList(context,  R.color.medium_blue));
                 }
                 else {
+
                     selectedYear = year;
                     lastSelectedPosition = position;
                     ViewCompat.setBackgroundTintList(holder.plainTextLayout,
