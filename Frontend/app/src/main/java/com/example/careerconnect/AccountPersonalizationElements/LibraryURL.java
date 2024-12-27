@@ -7,6 +7,10 @@ public class LibraryURL {
     }
 
     public static String getUniversitiesGETRequest(){
-        return "http://10.0.2.2:8080/university/get";
+        return "http://10.0.2.2:8080/university/get/";
+    }
+
+    public static String getMajorsGETRequest(){
+        return "http://10.0.2.2:8080/college/major/get/";
     }
 }

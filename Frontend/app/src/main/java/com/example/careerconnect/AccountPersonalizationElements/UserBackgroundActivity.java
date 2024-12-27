@@ -56,13 +56,56 @@ public class UserBackgroundActivity extends AppCompatActivity {
     private CountryAdapter countryAdapter;
     private String selectedCountry = "";
 
+    private TextView birthDateTxtView;
+    private TextView selectedCountryTxtView;
+    Spinner genderSpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_background);
 
+        birthDateTxtView = findViewById(R.id.birthDate_textView);
+        selectedCountryTxtView = findViewById(R.id.selected_country_textView);
+        genderSpinner = findViewById(R.id.gender_spinner);
+
         setupDateSelections();
+        birthDateRecyclerViewSetup();
+        genderSpinnerSetup();
+        countryRecyclerViewSetup();
+
+        // Confirming background details
+        Button nextButton = findViewById(R.id.next_button);
+        nextButton.setOnClickListener(v -> {
+
+            String selectedBirthDate = birthDateTxtView.getText().toString();
+            String selectedGender = genderSpinner.getSelectedItem().toString();
+            String selectedCountry = selectedCountryTxtView.getText().toString();
+
+            if (selectedBirthDate.isEmpty()){
+                ButterToast.show(this, "Select birth date", Toast.LENGTH_SHORT);
+                return;
+            }
+            if (genderSpinner.getSelectedItem().toString().equals("Select Gender")){
+                ButterToast.show(this, "Gender option not selected", Toast.LENGTH_SHORT);
+                return;
+            }
+            if (selectedCountry.isEmpty()){
+                ButterToast.show(this, "Select country", Toast.LENGTH_SHORT);
+                return;
+            }
+
+            // saving details to singleton repository
+            IdentifyingDataRepository repository = IdentifyingDataRepository.getInstance();
+            repository.getUserProfile().setBirthDate(selectedBirthDate);
+            repository.getUserProfile().setGender(selectedGender);
+            repository.getUserProfile().setCountry(selectedCountry);
+            //todo
+        });
+    }
+
+    private void birthDateRecyclerViewSetup(){
 
         // Months selection recycler view
         RecyclerView monthsRecyclerView = findViewById(R.id.months_recyclerView);
@@ -84,7 +127,6 @@ public class UserBackgroundActivity extends AppCompatActivity {
 
         // Birth Date confirmation
         Button confirmDateButton = findViewById(R.id.confirm_date_button);
-        TextView birthDateTxtView = findViewById(R.id.birthDate_textView);
         confirmDateButton.setOnClickListener(v -> {
 
             String selectedDate = selectedMonth + "/" + selectedDay + "/" + selectedYear;
@@ -98,9 +140,11 @@ public class UserBackgroundActivity extends AppCompatActivity {
                 ButterToast.show(this, "Birth date chosen", Toast.LENGTH_SHORT);
             }
         });
+    }
+
+    private void genderSpinnerSetup(){
 
         // Gender selection
-        Spinner genderSpinner = findViewById(R.id.gender_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.gender_options,
@@ -108,6 +152,9 @@ public class UserBackgroundActivity extends AppCompatActivity {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(adapter);
+    }
+
+    private void countryRecyclerViewSetup(){
 
         // Retrieving countries
         RecyclerView countryRecyclerView = findViewById(R.id.country_list_recyclerView);
@@ -123,36 +170,6 @@ public class UserBackgroundActivity extends AppCompatActivity {
         findCountryButton.setOnClickListener(v -> {
 
             getCountryByPrefix(searchCountryEdtTxt.getText().toString());
-        });
-
-        // Confirming background details
-        Button nextButton = findViewById(R.id.next_button);
-        nextButton.setOnClickListener(v -> {
-
-            String selectedBirthDate = birthDateTxtView.getText().toString();
-            String selectedGender = genderSpinner.getSelectedItem().toString();
-            TextView selectedCountryEdtTxt = findViewById(R.id.selected_country_textView);
-            String selectedCountry = selectedCountryEdtTxt.getText().toString();
-
-            if (selectedBirthDate.isEmpty()){
-                ButterToast.show(this, "Select birth date", Toast.LENGTH_SHORT);
-                return;
-            }
-            if (genderSpinner.getSelectedItem().toString().equals("Select Gender")){
-                ButterToast.show(this, "Gender option not selected", Toast.LENGTH_SHORT);
-                return;
-            }
-            if (selectedCountry.isEmpty()){
-                ButterToast.show(this, "Select country", Toast.LENGTH_SHORT);
-                return;
-            }
-
-            // saving details to singleton repository
-            IdentifyingDataRepository repository = IdentifyingDataRepository.getInstance();
-            repository.getUserProfile().setBirthDate(selectedBirthDate);
-            repository.getUserProfile().setGender(selectedGender);
-            repository.getUserProfile().setCountry(selectedCountry);
-            //todo
         });
     }
 
@@ -202,25 +219,26 @@ public class UserBackgroundActivity extends AppCompatActivity {
                     notifyItemChanged(lastSelectedPosition);
                     lastSelectedPosition = position;
                     ViewCompat.setBackgroundTintList(holder.plainTextLayout,
-                            ContextCompat.getColorStateList(context,  R.color.medium_blue));
+                            ContextCompat.getColorStateList(context, R.color.medium_blue));
                 }
                 else {
+
                     selectedMonth = month;
                     lastSelectedPosition = position;
                     ViewCompat.setBackgroundTintList(holder.plainTextLayout,
-                            ContextCompat.getColorStateList(context,  R.color.medium_blue));
+                            ContextCompat.getColorStateList(context, R.color.medium_blue));
                 }
             });
 
             if (selectedMonth.equals(month)){
 
                 ViewCompat.setBackgroundTintList(holder.plainTextLayout,
-                        ContextCompat.getColorStateList(context,  R.color.medium_blue));
+                        ContextCompat.getColorStateList(context, R.color.medium_blue));
             }
             else {
 
                 ViewCompat.setBackgroundTintList(holder.plainTextLayout,
-                        ContextCompat.getColorStateList(context,  R.color.white));
+                        ContextCompat.getColorStateList(context, R.color.white));
             }
             holder.plainTextTxtView.setText(month);
         }
@@ -399,8 +417,7 @@ public class UserBackgroundActivity extends AppCompatActivity {
                     ViewCompat.setBackgroundTintList(holder.plainTextLayout,
                             ContextCompat.getColorStateList(context, R.color.medium_blue));
                 }
-                TextView selectedCountryEdtTxt = findViewById(R.id.selected_country_textView);
-                selectedCountryEdtTxt.setText(selectedCountry);
+                selectedCountryTxtView.setText(selectedCountry);
             });
 
             if (selectedCountry.equals(country)){
