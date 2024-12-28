@@ -41,6 +41,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Allows USER account to set up background information
+ */
 public class UserBackgroundActivity extends AppCompatActivity {
 
     private String USERNAME = IdentifyingDataRepository.getInstance().getUserProfile().getUsername();
@@ -80,7 +83,9 @@ public class UserBackgroundActivity extends AppCompatActivity {
         genderSpinnerSetup();
         countryRecyclerViewSetup();
 
-        // Confirming background details
+        /**
+         * Confirming account background information
+         */
         Button nextButton = findViewById(R.id.next_button);
         nextButton.setOnClickListener(v -> {
 
@@ -100,6 +105,13 @@ public class UserBackgroundActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks if account has all necessary background information
+     * @param selectedBirthDate selected birth date
+     * @param selectedGender selected gender
+     * @param selectedCountry selected country
+     * @return true if successful, false otherwise
+     */
     private boolean checkBackgroundInfo(String selectedBirthDate, String selectedGender,
                                         String selectedCountry){
 
@@ -118,6 +130,9 @@ public class UserBackgroundActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Makes Volley requests to update background information to the server
+     */
     private void updateAccountBackgroundInfo(){
 
         VolleyJSONObjectRequests.makeVolleyJSONObjectGETRequest(this, LibraryURL.getUserProfileGETRequest() + USERNAME, new VolleyJSONObjectRequests.VolleyJSONObjectCallback() {
@@ -168,6 +183,9 @@ public class UserBackgroundActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets up all required RecyclerViews for birth date
+     */
     private void birthDateRecyclerViewSetup(){
 
         // Months selection recycler view
@@ -205,6 +223,9 @@ public class UserBackgroundActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets up spinner for gender selection
+     */
     private void genderSpinnerSetup(){
 
         // Gender selection
@@ -217,6 +238,9 @@ public class UserBackgroundActivity extends AppCompatActivity {
         genderSpinner.setAdapter(adapter);
     }
 
+    /**
+     * Sets up RecyclerView for country selection
+     */
     private void countryRecyclerViewSetup(){
 
         // Retrieving countries
@@ -236,6 +260,9 @@ public class UserBackgroundActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Responsible for describing an item and its associated views within a RecyclerView
+     */
     private class PlainTextViewHolder extends RecyclerView.ViewHolder{
 
         LinearLayout plainTextLayout;
@@ -249,6 +276,9 @@ public class UserBackgroundActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Binds views data to month RecyclerView
+     */
     private class MonthAdapter extends RecyclerView.Adapter<PlainTextViewHolder>{
 
         private final List<String> months;
@@ -312,6 +342,9 @@ public class UserBackgroundActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Binds views data to day RecyclerView
+     */
     private class DayAdapter extends RecyclerView.Adapter<PlainTextViewHolder>{
 
         private final List<String> days;
@@ -375,6 +408,9 @@ public class UserBackgroundActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Binds views data to year RecyclerView
+     */
     private class YearAdapter extends RecyclerView.Adapter<PlainTextViewHolder>{
 
         private final List<String> years;
@@ -438,6 +474,9 @@ public class UserBackgroundActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Binds views data to country RecyclerView
+     */
     private class CountryAdapter extends RecyclerView.Adapter<PlainTextViewHolder>{
 
         private final List<String> countriesList;
@@ -502,6 +541,10 @@ public class UserBackgroundActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets up all possible date selection and up to
+     * {current year} - 120 years
+     */
     private void setupDateSelections(){
 
         for (int i = 1; i <= 12; i++){
@@ -518,6 +561,11 @@ public class UserBackgroundActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks if a selected data is valid
+     * @param dateToCheck selected date
+     * @return true if successful, false otherwise
+     */
     private boolean isValidDate(String dateToCheck){
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -531,6 +579,10 @@ public class UserBackgroundActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Makes Volley request to retrieve list of countries by prefix
+     * @param prefix given prefix
+     */
     private void getCountryByPrefix(String prefix){
 
         VolleyJSONArrayRequests.makeVolleyJSONArrayGETRequest(this, LibraryURL.getCountriesGETRequest() + prefix, new VolleyJSONArrayRequests.VolleyJSONArrayCallback() {
