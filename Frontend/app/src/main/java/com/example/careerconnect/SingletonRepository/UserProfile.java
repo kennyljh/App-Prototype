@@ -3,7 +3,7 @@ package com.example.careerconnect.SingletonRepository;
 public class UserProfile {
 
     private String firstName, middleName, lastName, username, email, phoneNumber;
-    private String birthDate, gender, country;
+    private String birthDate, gender, country, university, major;
 
     public UserProfile(){}
 
@@ -88,5 +88,21 @@ public class UserProfile {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
     }
 }

@@ -22,7 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.careerconnect.Global.ButterToast;
 import com.example.careerconnect.R;
+import com.example.careerconnect.SingletonRepository.IdentifyingDataRepository;
+import com.example.careerconnect.SingletonRepository.UserProfile;
 import com.example.careerconnect.Volley.VolleyJSONArrayRequests;
+import com.example.careerconnect.Volley.VolleyJSONObjectRequests;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserEducationActivity extends AppCompatActivity {
+
+    private String USERNAME = IdentifyingDataRepository.getInstance().getUserProfile().getUsername();
 
     private final List<String> universityList = new ArrayList<>();
     private UniversityAdapter universityAdapter;
@@ -63,9 +68,78 @@ public class UserEducationActivity extends AppCompatActivity {
             String selectedUniversity = selectedUniversityTxtView.getText().toString();
             String selectedMajor = selectedMajorTxtView.getText().toString();
 
-            Log.d("SELECTED ITEMS", selectedUniversity + selectedMajor);
-        });
+            if (!checkEducationInfo(selectedUniversity, selectedMajor)) return;
 
+            // saving details to singleton repository
+            UserProfile userProfile = IdentifyingDataRepository.getInstance().getUserProfile();
+            userProfile.setUniversity(selectedUniversity);
+            userProfile.setMajor(selectedMajor);
+
+            updateAccountBackgroundInfo();
+        });
+    }
+
+    private boolean checkEducationInfo(String selectedUniversity, String selectedMajor){
+
+        if (selectedUniversity.isEmpty()){
+            ButterToast.show(getApplicationContext(), "Select university", Toast.LENGTH_SHORT);
+            return false;
+        }
+        if (selectedMajor.isEmpty()){
+            ButterToast.show(getApplicationContext(), "Select major", Toast.LENGTH_SHORT);
+            return false;
+        }
+        return true;
+    }
+
+    private void updateAccountBackgroundInfo(){
+
+        VolleyJSONObjectRequests.makeVolleyJSONObjectGETRequest(
+                this,
+                LibraryURL.getUserProfileGETRequest() + USERNAME,
+                new VolleyJSONObjectRequests.VolleyJSONObjectCallback() {
+                    @Override
+                    public void onResult(boolean result) {
+
+                        if (!result){
+                            ButterToast.show(getApplicationContext(), "Server is acting slow. Please try again", Toast.LENGTH_SHORT);
+                        }
+                    }
+
+                    @Override
+                    public void onJSONObject(JSONObject jsonObject) {
+
+                        if (jsonObject != null){
+
+                            UserProfile userProfile = IdentifyingDataRepository.getInstance().getUserProfile();
+                            try{
+                                jsonObject.put("university", userProfile.getUniversity());
+                                jsonObject.put("major", userProfile.getMajor());
+                            } catch (JSONException e){
+                                throw new RuntimeException(e);
+                            }
+
+                            VolleyJSONObjectRequests.makeVolleyJSONObjectPUTRequest(
+                                    jsonObject,
+                                    getApplicationContext(),
+                                    LibraryURL.getUserProfilePUTRequest() + USERNAME,
+                                    new VolleyJSONObjectRequests.VolleyCallback() {
+                                        @Override
+                                        public void onResult(boolean result) {
+
+                                            if (!result){
+                                                ButterToast.show(getApplicationContext(), "Server is acting slow. Please try again", Toast.LENGTH_SHORT);
+                                            }
+                                            else {
+                                                ButterToast.show(getApplicationContext(), "Education information updated", Toast.LENGTH_SHORT);
+                                            }
+                                        }
+                                    }
+                            );
+                        }
+                    }
+                }
+        );
     }
 
     private void universityRecyclerViewSetup(){
@@ -135,7 +209,7 @@ public class UserEducationActivity extends AppCompatActivity {
         @Override
         public PlainTextViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_plain_text_layout, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plain_text_layout, parent, false);
             return new PlainTextViewHolder(view);
         }
 
@@ -199,7 +273,7 @@ public class UserEducationActivity extends AppCompatActivity {
         @Override
         public PlainTextViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_plain_text_layout, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plain_text_layout, parent, false);
             return new PlainTextViewHolder(view);
         }
 

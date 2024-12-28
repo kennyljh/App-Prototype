@@ -2,6 +2,7 @@ package com.example.careerconnect.AccountPersonalizationElements;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.careerconnect.Global.ButterToast;
 import com.example.careerconnect.R;
 import com.example.careerconnect.SingletonRepository.IdentifyingDataRepository;
+import com.example.careerconnect.SingletonRepository.UserProfile;
 import com.example.careerconnect.Volley.VolleyJSONArrayRequests;
+import com.example.careerconnect.Volley.VolleyJSONObjectRequests;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +42,8 @@ import java.util.Date;
 import java.util.List;
 
 public class UserBackgroundActivity extends AppCompatActivity {
+
+    private String USERNAME = IdentifyingDataRepository.getInstance().getUserProfile().getUsername();
 
     private final List<String> months = new ArrayList<>();
     private MonthAdapter monthAdapter;
@@ -83,25 +88,83 @@ public class UserBackgroundActivity extends AppCompatActivity {
             String selectedGender = genderSpinner.getSelectedItem().toString();
             String selectedCountry = selectedCountryTxtView.getText().toString();
 
-            if (selectedBirthDate.isEmpty()){
-                ButterToast.show(this, "Select birth date", Toast.LENGTH_SHORT);
-                return;
-            }
-            if (genderSpinner.getSelectedItem().toString().equals("Select Gender")){
-                ButterToast.show(this, "Gender option not selected", Toast.LENGTH_SHORT);
-                return;
-            }
-            if (selectedCountry.isEmpty()){
-                ButterToast.show(this, "Select country", Toast.LENGTH_SHORT);
-                return;
-            }
+            if (!checkBackgroundInfo(selectedBirthDate, selectedGender, selectedCountry)) return;
 
             // saving details to singleton repository
-            IdentifyingDataRepository repository = IdentifyingDataRepository.getInstance();
-            repository.getUserProfile().setBirthDate(selectedBirthDate);
-            repository.getUserProfile().setGender(selectedGender);
-            repository.getUserProfile().setCountry(selectedCountry);
-            //todo
+            UserProfile userProfile = IdentifyingDataRepository.getInstance().getUserProfile();
+            userProfile.setBirthDate(selectedBirthDate);
+            userProfile.setGender(selectedGender);
+            userProfile.setCountry(selectedCountry);
+
+            updateAccountBackgroundInfo();
+        });
+    }
+
+    private boolean checkBackgroundInfo(String selectedBirthDate, String selectedGender,
+                                        String selectedCountry){
+
+        if (selectedBirthDate.isEmpty()){
+            ButterToast.show(this, "Select birth date", Toast.LENGTH_SHORT);
+            return false;
+        }
+        if (genderSpinner.getSelectedItem().toString().equals("Select Gender")){
+            ButterToast.show(this, "Gender option not selected", Toast.LENGTH_SHORT);
+            return false;
+        }
+        if (selectedCountry.isEmpty()){
+            ButterToast.show(this, "Select country", Toast.LENGTH_SHORT);
+            return false;
+        }
+        return true;
+    }
+
+    private void updateAccountBackgroundInfo(){
+
+        VolleyJSONObjectRequests.makeVolleyJSONObjectGETRequest(this, LibraryURL.getUserProfileGETRequest() + USERNAME, new VolleyJSONObjectRequests.VolleyJSONObjectCallback() {
+            @Override
+            public void onResult(boolean result) {
+
+                if (!result){
+                    ButterToast.show(getApplicationContext(), "Server is acting slow. Please try again", Toast.LENGTH_SHORT);
+                }
+            }
+
+            @Override
+            public void onJSONObject(JSONObject jsonObject) {
+
+                if (jsonObject != null){
+
+                    UserProfile userProfile = IdentifyingDataRepository.getInstance().getUserProfile();
+                    try{
+                        jsonObject.put("birthDate", userProfile.getBirthDate());
+                        jsonObject.put("gender", userProfile.getGender());
+                        jsonObject.put("country", userProfile.getCountry());
+                    } catch (JSONException e){
+                        throw new RuntimeException(e);
+                    }
+
+                    VolleyJSONObjectRequests.makeVolleyJSONObjectPUTRequest(
+                            jsonObject,
+                            getApplicationContext(),
+                            LibraryURL.getUserProfilePUTRequest() + USERNAME,
+                            new VolleyJSONObjectRequests.VolleyCallback() {
+                                @Override
+                                public void onResult(boolean result) {
+
+                                    if (!result){
+                                        ButterToast.show(getApplicationContext(), "Server is acting slow. Please try again", Toast.LENGTH_SHORT);
+                                    }
+                                    else {
+                                        ButterToast.show(getApplicationContext(), "Background information updated", Toast.LENGTH_SHORT);
+                                        Intent intent = new Intent(UserBackgroundActivity.this, UserEducationActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            }
+                    );
+                }
+            }
         });
     }
 
@@ -202,7 +265,7 @@ public class UserBackgroundActivity extends AppCompatActivity {
         @Override
         public PlainTextViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_plain_text_layout, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plain_text_layout, parent, false);
             return new PlainTextViewHolder(view);
         }
 
@@ -265,7 +328,7 @@ public class UserBackgroundActivity extends AppCompatActivity {
         @Override
         public PlainTextViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_plain_text_layout, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plain_text_layout, parent, false);
             return new PlainTextViewHolder(view);
         }
 
@@ -328,7 +391,7 @@ public class UserBackgroundActivity extends AppCompatActivity {
         @Override
         public PlainTextViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_plain_text_layout, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plain_text_layout, parent, false);
             return new PlainTextViewHolder(view);
         }
 
@@ -391,7 +454,7 @@ public class UserBackgroundActivity extends AppCompatActivity {
         @Override
         public PlainTextViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_plain_text_layout, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plain_text_layout, parent, false);
             return new PlainTextViewHolder(view);
         }
 
