@@ -2,6 +2,7 @@ package com.careerconnect.app.UserProfiles;
 
 import com.careerconnect.app.Accounts.Account;
 import com.careerconnect.app.Accounts.AccountRepository;
+import com.careerconnect.app.Global.ImageDataConverter;
 import com.careerconnect.app.Usernames.Username;
 import com.careerconnect.app.Usernames.UsernameRepository;
 import jakarta.validation.Valid;
@@ -67,6 +68,13 @@ public class UserProfileController {
         existingUserProfile.setLastName(request.getLastName());
         existingUserProfile.setEmail(request.getEmail());
         existingUserProfile.setPhoneNumber(request.getPhoneNumber());
+        existingUserProfile.setProfilePicture(ImageDataConverter.base64ToByteArray(request.getProfilePicture()));
+        existingUserProfile.setBiography(request.getBiography());
+        existingUserProfile.setBirthDate(request.getBirthDate());
+        existingUserProfile.setGender(request.getGender());
+        existingUserProfile.setCountry(request.getCountry());
+        existingUserProfile.setUniversity(request.getUniversity());
+        existingUserProfile.setMajor(request.getMajor());
         return existingUserProfile;
     }
 }

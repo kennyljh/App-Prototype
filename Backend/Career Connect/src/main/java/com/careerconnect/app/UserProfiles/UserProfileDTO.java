@@ -17,6 +17,18 @@ public class UserProfileDTO {
     @NotNull(message = "Phone number cannot be null")
     private String phoneNumber;
 
+    /**
+     * DTO expects a base 64 encoded String, but database will
+     * be expecting a byte[]
+     */
+    private String profilePicture;
+    private String biography;
+    private String birthDate;
+    private String gender;
+    private String country;
+    private String university;
+    private String major;
+
     public String getFirstName() {
         return firstName;
     }
@@ -55,5 +67,61 @@ public class UserProfileDTO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
     }
 }

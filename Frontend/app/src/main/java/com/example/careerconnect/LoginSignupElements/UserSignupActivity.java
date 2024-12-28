@@ -128,6 +128,7 @@ public class UserSignupActivity extends AppCompatActivity {
                                     saveUserInfoToRepository(firstName, middleName, lastName,
                                                                 username, email, phoneNumber);
                                     Intent intent = new Intent(UserSignupActivity.this, CareerClusterSelectionActivity.class);
+                                    intent.putExtra("ACCOUNT TYPE", "USER");
                                     startActivity(intent);
                                     finish();
                                 }
