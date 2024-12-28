@@ -18,6 +18,10 @@ import com.example.careerconnect.SingletonRepository.CompanyProfile;
 import com.example.careerconnect.SingletonRepository.IdentifyingDataRepository;
 import com.example.careerconnect.SingletonRepository.UserProfile;
 
+/**
+ * Presents clients with the option to choose to set up profile information
+ * or reject it
+ */
 public class AccountPersonalizationActivity extends AppCompatActivity {
 
     private String USERNAME;
@@ -38,6 +42,9 @@ public class AccountPersonalizationActivity extends AppCompatActivity {
         Button frameColorInfoButton = findViewById(R.id.profile_card_info_btn);
         Button setupProfileInfoButton = findViewById(R.id.account_setup_info_button);
 
+        /**
+         * Accept profile personalization
+         */
         acceptButton.setOnClickListener(v -> {
 
             switch (ACCOUNTTYPE){
@@ -52,16 +59,25 @@ public class AccountPersonalizationActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Reject profile personalization
+         */
         rejectButton.setOnClickListener(v -> {
             //todo
         });
 
+        /**
+         * Displays info for frame color distinction
+         */
         frameColorInfoButton.setOnClickListener(v -> {
 
             FrameColorInfoDialogFragment dialogFragment = new FrameColorInfoDialogFragment();
             dialogFragment.show(getSupportFragmentManager(), "Information");
         });
 
+        /**
+         * Displays info for profile personalization
+         */
         setupProfileInfoButton.setOnClickListener(v -> {
 
             ProfilePersonalizationInfoDialogFragment dialogFragment = new ProfilePersonalizationInfoDialogFragment();
@@ -69,6 +85,10 @@ public class AccountPersonalizationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets up views for the profile personalization snippet based on account
+     * type
+     */
     private void activityDisplaySetup(){
 
         ScrollView userCard = findViewById(R.id.user_info_card_layout);

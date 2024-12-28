@@ -34,6 +34,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Allows USER account to set up education information
+ */
 public class UserEducationActivity extends AppCompatActivity {
 
     private String USERNAME = IdentifyingDataRepository.getInstance().getUserProfile().getUsername();
@@ -61,7 +64,9 @@ public class UserEducationActivity extends AppCompatActivity {
         universityRecyclerViewSetup();
         majorRecyclerViewSetup();
 
-        // Confirming education details
+        /**
+         * Confirming account education information
+         */
         Button nextButton = findViewById(R.id.next_button);
         nextButton.setOnClickListener(v -> {
 
@@ -79,6 +84,12 @@ public class UserEducationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks if account has all necessary education information
+     * @param selectedUniversity selected university
+     * @param selectedMajor selected major
+     * @return true if successful, false otherwise
+     */
     private boolean checkEducationInfo(String selectedUniversity, String selectedMajor){
 
         if (selectedUniversity.isEmpty()){
@@ -92,6 +103,9 @@ public class UserEducationActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Makes Volley requests to update education information to the server
+     */
     private void updateAccountBackgroundInfo(){
 
         VolleyJSONObjectRequests.makeVolleyJSONObjectGETRequest(
@@ -142,6 +156,9 @@ public class UserEducationActivity extends AppCompatActivity {
         );
     }
 
+    /**
+     * Sets up required RecyclerView for university
+     */
     private void universityRecyclerViewSetup(){
 
         // Retrieving universities
@@ -161,6 +178,9 @@ public class UserEducationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets up required RecyclerView for major
+     */
     private void majorRecyclerViewSetup(){
 
         // Retrieving countries
@@ -180,6 +200,9 @@ public class UserEducationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Responsible for describing an item and its associated views within a RecyclerView
+     */
     private class PlainTextViewHolder extends RecyclerView.ViewHolder{
 
         LinearLayout plainTextLayout;
@@ -193,6 +216,9 @@ public class UserEducationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Binds views data to university RecyclerView
+     */
     private class UniversityAdapter extends RecyclerView.Adapter<PlainTextViewHolder>{
 
         private final List<String> universityList;
@@ -257,6 +283,9 @@ public class UserEducationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Binds views data to major RecyclerView
+     */
     private class MajorAdapter extends RecyclerView.Adapter<PlainTextViewHolder> {
 
         private final List<String> majorList;
@@ -319,6 +348,10 @@ public class UserEducationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Makes Volley request to retrieve list of universities by prefix
+     * @param prefix given prefix
+     */
     private void getUniversityByPrefix(String prefix){
 
         VolleyJSONArrayRequests.makeVolleyJSONArrayGETRequest(this, LibraryURL.getUniversitiesGETRequest() + prefix, new VolleyJSONArrayRequests.VolleyJSONArrayCallback() {
@@ -352,6 +385,10 @@ public class UserEducationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Makes Volley request to retrieve list of majors by prefix
+     * @param prefix given prefix
+     */
     private void getMajorByPrefix(String prefix){
 
         VolleyJSONArrayRequests.makeVolleyJSONArrayGETRequest(this, LibraryURL.getMajorsGETRequest() + prefix, new VolleyJSONArrayRequests.VolleyJSONArrayCallback() {
