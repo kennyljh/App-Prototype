@@ -50,7 +50,7 @@ public class AccountPersonalizationActivity extends AppCompatActivity {
             switch (ACCOUNTTYPE){
 
                 case "USER":
-                    Intent intent = new Intent(AccountPersonalizationActivity.this, UserBackgroundActivity.class);
+                    Intent intent = new Intent(AccountPersonalizationActivity.this, UserPictureBioActivity.class);
                     startActivity(intent);
                     finish();
                     break;

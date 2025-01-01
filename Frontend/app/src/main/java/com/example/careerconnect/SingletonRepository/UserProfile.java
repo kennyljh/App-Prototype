@@ -1,9 +1,12 @@
 package com.example.careerconnect.SingletonRepository;
 
+import android.graphics.Bitmap;
+
 public class UserProfile {
 
     private String firstName, middleName, lastName, username, email, phoneNumber;
-    private String birthDate, gender, country, university, major;
+    private Bitmap profilePicture;
+    private String biography, birthDate, gender, country, university, major;
 
     public UserProfile(){}
 
@@ -64,6 +67,22 @@ public class UserProfile {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Bitmap getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(Bitmap profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
     }
 
     public String getBirthDate() {

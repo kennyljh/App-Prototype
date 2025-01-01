@@ -12,7 +12,6 @@
         android:text="Account Personalization"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
-        android:layout_marginTop="20dp"
         android:textSize="50sp"
         android:textColor="@color/white"
         android:padding="10dp"

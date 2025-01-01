@@ -37,6 +37,9 @@
             android:name=".AccountPersonalizationElements.UserEducationActivity"
             android:exported="false"/>
         <activity
+            android:name=".AccountPersonalizationElements.UserPictureBioActivity"
+            android:exported="false"/>
+        <activity
             android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
