@@ -1,8 +1,12 @@
 package com.careerconnect.app.UserProfiles;
 
 import com.careerconnect.app.Accounts.Account;
+import com.careerconnect.app.Qualifications.Qualification;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_profile")
@@ -31,6 +35,9 @@ public class UserProfile {
     private String country;
     private String university;
     private String major;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userProfile")
+    private List<Qualification> qualifications;
 
     public UserProfile(){}
 
@@ -154,5 +161,13 @@ public class UserProfile {
 
     public void setMajor(String major) {
         this.major = major;
+    }
+
+    public List<Qualification> getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(List<Qualification> qualifications) {
+        this.qualifications = qualifications;
     }
 }
