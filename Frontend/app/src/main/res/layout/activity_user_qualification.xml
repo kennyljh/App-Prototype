@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Qualifications"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textSize="50sp"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:background="@color/cobalt_blue">
+    </TextView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/element_background"
+        android:padding="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Qualification Title"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+
+        <EditText
+            android:id="@+id/qualification_title_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/edittext_border"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:theme="@style/EditTextBoxStyle">
+        </EditText>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Qualification Description"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+
+        <EditText
+            android:id="@+id/qualification_description_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/edittext_border"
+            android:textSize="18sp"
+            android:textColor="@color/black">
+        </EditText>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Qualification Duration"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="From:"
+                android:textSize="18sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="match_parent"/>
+
+            <EditText
+                android:id="@+id/from_month_edittext"
+                android:gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:background="@drawable/edittext_border"
+                android:inputType="number"
+                android:hint="MM">
+            </EditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:text="/"
+                android:textSize="30sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <EditText
+                android:id="@+id/from_day_edittext"
+                android:gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:background="@drawable/edittext_border"
+                android:inputType="number"
+                android:hint="DD">
+            </EditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:text="/"
+                android:textSize="30sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <EditText
+                android:id="@+id/from_year_edittext"
+                android:gravity="center"
+                android:layout_width="70dp"
+                android:layout_height="35dp"
+                android:background="@drawable/edittext_border"
+                android:inputType="number"
+                android:hint="YYYY">
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To:"
+                android:textSize="18sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="match_parent"/>
+
+            <EditText
+                android:id="@+id/to_month_edittext"
+                android:gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:background="@drawable/edittext_border"
+                android:inputType="number"
+                android:hint="MM">
+            </EditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:text="/"
+                android:textSize="30sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <EditText
+                android:id="@+id/to_day_edittext"
+                android:gravity="center"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:background="@drawable/edittext_border"
+                android:inputType="number"
+                android:hint="DD">
+            </EditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:text="/"
+                android:textSize="30sp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <EditText
+                android:id="@+id/to_year_edittext"
+                android:gravity="center"
+                android:layout_width="70dp"
+                android:layout_height="35dp"
+                android:background="@drawable/edittext_border"
+                android:inputType="number"
+                android:hint="YYYY">
+            </EditText>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_qualification_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Qualification"
+            android:textSize="15sp"
+            android:textAllCaps="false">
+        </Button>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/element_background"
+        android:layout_marginHorizontal="20dp"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/qualification_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/remove_qualification_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remove Selected Qualification"
+            android:textAllCaps="false"
+            android:textSize="15sp">
+        </Button>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Step 4 of 4"
+        android:textColor="@color/cobalt_blue"
+        android:textSize="20sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp">
+    </TextView>
+
+    <Button
+        android:id="@+id/finish_button"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Finish Personalization"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:backgroundTint="#0056b4"
+        android:background="@drawable/rounded_button"
+        android:textColor="#ffffff">
+    </Button>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

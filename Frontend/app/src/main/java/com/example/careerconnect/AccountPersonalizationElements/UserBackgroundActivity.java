@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.careerconnect.Global.ButterToast;
+import com.example.careerconnect.Global.DateValidator;
 import com.example.careerconnect.R;
 import com.example.careerconnect.SingletonRepository.IdentifyingDataRepository;
 import com.example.careerconnect.SingletonRepository.UserProfile;
@@ -211,7 +212,7 @@ public class UserBackgroundActivity extends AppCompatActivity {
         confirmDateButton.setOnClickListener(v -> {
 
             String selectedDate = selectedMonth + "/" + selectedDay + "/" + selectedYear;
-            if (!isValidDate(selectedDate)){
+            if (!DateValidator.isValidDate(selectedDate)){
 
                 ButterToast.show(this, "Invalid date", Toast.LENGTH_SHORT);
             }
@@ -545,37 +546,19 @@ public class UserBackgroundActivity extends AppCompatActivity {
      * Sets up all possible date selection and up to
      * {current year} - 120 years
      */
-    private void setupDateSelections(){
+    private void setupDateSelections() {
 
-        for (int i = 1; i <= 12; i++){
+        for (int i = 1; i <= 12; i++) {
             months.add(String.valueOf(i));
         }
 
-        for (int i = 1; i <= 31; i++){
+        for (int i = 1; i <= 31; i++) {
             days.add(String.valueOf(i));
         }
 
         String currentYear = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
-        for (int i = Integer.parseInt(currentYear); i >= (Integer.parseInt(currentYear) - 120); i--){
+        for (int i = Integer.parseInt(currentYear); i >= (Integer.parseInt(currentYear) - 120); i--) {
             years.add(String.valueOf(i));
-        }
-    }
-
-    /**
-     * Checks if a selected data is valid
-     * @param dateToCheck selected date
-     * @return true if successful, false otherwise
-     */
-    private boolean isValidDate(String dateToCheck){
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        simpleDateFormat.setLenient(false);
-
-        try {
-            Date date = simpleDateFormat.parse(dateToCheck);
-            return true;
-        } catch (ParseException e){
-            return false;
         }
     }
 
